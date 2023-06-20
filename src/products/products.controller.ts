@@ -1,7 +1,6 @@
-import { Get } from '@nestjs/common';
+import { Controller, Body, Get, Param, Query, Patch, Post, Delete } from '@nestjs/common';
 
-import { Controller } from '@nestjs/common';
-import { Product } from './product.entity';
+import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
 
 @Controller('products')
@@ -13,4 +12,7 @@ export class ProductsController {
   getAllProducts(): Promise<Product[]>{
     return this.productService.getAllProducts();
   }
+
+
+
 }
