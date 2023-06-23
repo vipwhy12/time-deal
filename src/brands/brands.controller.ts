@@ -1,17 +1,27 @@
 import { Controller, Body, Get, Param, Query, Patch, Post, Delete } from '@nestjs/common';
+import { BrandsService } from './brands.service';
+import { Brand } from './brand.entity';
+import { CreateBrandDto } from './dto/create-brand.dto';
 
 
 @Controller('brands')
 export class BrandsController {
 
-  @Get()
-  getAllBrand(){
-    return `모든 브랜드를 검색합니다.`
-  }
+  constructor(private readonly brandsService: BrandsService) {}
 
-  @Post(':id')
-  createBrand(@Param('id') brandId: string, @Body() brandData){
-    return `브랜드가 생성될 예정입니다. ${brandData}`;
+  // @Get()
+  // getAllBrand(): Promise<Brand[]>{
+  //   return this.brandsService.getAllBrands();
+  // }
+
+  // @Get(':id')
+  // getBrandById(@Param('id') brandId: number): Promise<Brand>{
+  //   return this.brandsService.getBrandById(brandId);
+  // }
+
+  @Post()
+  createBrand(@Body() brandData : CreateBrandDto){
+    return this.brandsService.createBrand(brandData);
   }
 
   @Delete(':id')
@@ -22,7 +32,10 @@ export class BrandsController {
 
   @Patch('/:id')
   patchBrand(@Param('id') brandId: string, @Body() updateData){
-    return `${brandId}의 브랜드를 업데이트할 예정입니다.`;
+    return {
+      updatedBrand: brandId, 
+      ...updateData
+    }
   }
   
 

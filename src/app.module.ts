@@ -10,7 +10,8 @@ import { BrandsModule } from './brands/brands.module';
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
     ProductsModule,
-    BrandsModule],
+    BrandsModule
+    ],
     controllers : [AppController],
     providers : [AppService]
 })
