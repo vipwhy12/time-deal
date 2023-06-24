@@ -11,7 +11,7 @@ async function serverListen() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist : true,
     forbidNonWhitelisted : true,
-    transform: true  
+    transform: true 
   }))
 
 

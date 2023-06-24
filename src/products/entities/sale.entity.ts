@@ -1,6 +1,5 @@
 import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "./product.entity";
-import { CaseModel } from "./case-model.entity";
 
 @Entity()
 export class Sale extends BaseEntity{
@@ -13,6 +12,4 @@ export class Sale extends BaseEntity{
   @OneToOne(()=> Product, (product) => product.sale)
   product:Product;
 
-  @OneToOne(()=> CaseModel, (caseModel) => caseModel.id)
-  caseModel:CaseModel;
 }
