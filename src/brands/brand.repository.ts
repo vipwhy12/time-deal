@@ -1,6 +1,6 @@
 import { Repository } from "typeorm";
 import { Brand } from "./brand.entity";
-import { CustomRepository } from "./custom.repository";
+import { CustomRepository } from "../custom/custom.repository";
 import { CreateBrandDto } from "./dto/create-brand.dto";
 
 @CustomRepository(Brand)

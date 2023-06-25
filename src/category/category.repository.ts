@@ -1,6 +1,6 @@
 import { Category } from "./category.entity";
-import { DataSource, Repository } from "typeorm";
-import { CustomRepository } from "./custom.repository";
+import { Repository } from "typeorm";
+import { CustomRepository } from "../custom/custom.repository"
 import { CreateCategoryDto } from "./dto/create-category.dto";
 
 
