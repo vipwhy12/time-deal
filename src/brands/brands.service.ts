@@ -13,7 +13,11 @@ export class BrandsService {
   }
 
   async getById(id: number): Promise <Brand>{
-    return await this.brandRepository.findOneBy({id});
+    const found = await this.brandRepository.findOneBy({id});
+    if(!found){
+      throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
+    }
+    return found 
   }
 
   createBrand(createBrandDto : CreateBrandDto): Promise<Brand>{
