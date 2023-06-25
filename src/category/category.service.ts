@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Category } from './category.entity';
 import { CategoryRepository } from './category.repository';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Product } from 'src/products/entities/product.entity';
 
 @Injectable()
 export class CategoryService {
@@ -28,11 +27,11 @@ export class CategoryService {
   }
 
   
-  async getProducts(id : number): Promise<Product[]>{
-    const found = await this.categoryRepository.findOneBy({id});
+  async getProducts(id : number): Promise<Category[]>{
+    const found = await this.categoryRepository.manager.getTreeRepository(Category).findTrees()
     if(!found){
       throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
     }
-    return found.products;
+    return found;
   }
 }
