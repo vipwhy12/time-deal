@@ -6,6 +6,12 @@ import { CreateBrandDto } from "./dto/create-brand.dto";
 @CustomRepository(Brand)
 export class BrandRepository extends Repository<Brand>{
 
+  async findAll(){
+    return await this.find({
+      loadRelationIds: true
+    })
+  }
+
   async createBrand(createBrandDto: CreateBrandDto): Promise<Brand>{
     
     const { name, description, products } = createBrandDto = createBrandDto;

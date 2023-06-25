@@ -9,7 +9,7 @@ export class BrandsService {
   constructor(private brandRepository: BrandRepository){}
 
   async getAll(): Promise<Brand[]>{
-    return await this.brandRepository.find();
+    return await this.brandRepository.findAll();
   }
 
   async getById(id: number): Promise <Brand>{
@@ -19,6 +19,7 @@ export class BrandsService {
     }
     return found 
   }
+
 
   createBrand(createBrandDto : CreateBrandDto): Promise<Brand>{
     return this.brandRepository.createBrand(createBrandDto);
