@@ -19,6 +19,7 @@ export class CategoryController {
     return this.categoryService.getById(categoryId);
   }
 
+
   @Get('/product/:id')
   getProducts(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
     return this.categoryService.getProducts(categoryId);

@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToMany } from "typeorm";
 import { ProductTarget } from "../product-target-enum"; 
 import { Brand } from "../../brands/brand.entity";
 import { Sale } from "./sale.entity";
@@ -15,8 +15,8 @@ export class Product extends BaseEntity{
   @ManyToOne(type => Brand, brand => brand.products, {eager: false})
   brand: Brand;
 
-  @ManyToOne(() => Category, category => category.products)
-  category: Category;
+  @ManyToMany(() => Category, category => category.products)
+  category: Category[];
 
   @OneToOne(() => Sale, (sale) => sale.product) // specify inverse side as a second parameter
   @JoinColumn()

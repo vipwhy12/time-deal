@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   TreeChildren,
   TreeParent,
-  TreeLevelColumn,BaseEntity, OneToMany, ManyToOne
+  TreeLevelColumn,BaseEntity, ManyToMany
 } from "typeorm"
 
 @Entity()
@@ -22,7 +22,7 @@ export class Category extends BaseEntity{
   @Column()
   depth: number
 
-  @OneToMany(type => Product, product => product.category, {eager : true})
+  @ManyToMany(() => Product, (product) => product.category, {eager : true})
   products: Product[]
 
   @TreeChildren()
