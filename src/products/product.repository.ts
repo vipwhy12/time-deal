@@ -1,15 +1,27 @@
-import { Injectable } from "@nestjs/common";
-import { Repository, DataSource } from "typeorm";
+import { Repository } from "typeorm";
 import { Product } from "./entities/product.entity";
+import { CustomRepository } from "../custom/custom.repository"
+import { CreateProductDto } from "./dto/create-product.dto";
+import { Category } from "src/category/category.entity";
+import { Brand } from "src/brands/brand.entity";
 
-@Injectable()
+@CustomRepository(Product)
 export class ProductRepository extends Repository<Product>{
-  constructor(private dataSource: DataSource) {
-    super(Product, dataSource.createEntityManager())
+
+  async findAll(){
+    return await this.find({
+      loadRelationIds: true
+    })
   }
 
-  async createProduct(product:Product): Promise<Product>{
-    await product.save();
+  async createProduct(createProductDto:CreateProductDto, category: Category, brand:Brand): Promise<Product>{
+    const { name } = createProductDto;
+    const product = this.create({
+      name, 
+      brand,
+      category : [category]
+    })
+    await this.save(product);
     return product
   }
   

@@ -12,6 +12,7 @@ import { Category } from './category.entity';
     CustomTypeOrmModule.forCustomRepository([CategoryRepository])
   ],
   controllers: [CategoryController],
-  providers: [CategoryService]
+  providers: [CategoryService],
+  exports : [CategoryService]
 })
 export class CategoryModule {}

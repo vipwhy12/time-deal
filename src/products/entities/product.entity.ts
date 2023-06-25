@@ -1,5 +1,4 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToMany } from "typeorm";
-import { ProductTarget } from "../product-target-enum"; 
 import { Brand } from "../../brands/brand.entity";
 import { Sale } from "./sale.entity";
 import { Category } from "src/category/category.entity";

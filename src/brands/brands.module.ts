@@ -12,6 +12,7 @@ import { CustomTypeOrmModule } from 'src/custom/customTypeOrmModule';
     CustomTypeOrmModule.forCustomRepository([BrandRepository])
   ],
   controllers: [BrandsController],
-  providers: [BrandsService]
+  providers: [BrandsService],
+  exports: [BrandsService]
 })
 export class BrandsModule {}
