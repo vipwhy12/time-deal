@@ -1,6 +1,5 @@
-import { ObjectId } from "typeorm";
 import { Category } from "../category.entity"
-import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreateCategoryDto{
   @IsString()

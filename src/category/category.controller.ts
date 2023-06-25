@@ -1,9 +1,6 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CategoryService } from './category.service';
-import { Category } from './category.entity';
-import { DataSource } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Product } from 'src/products/entities/product.entity';
 
 @Controller('category')
 export class CategoryController {
@@ -14,7 +11,7 @@ export class CategoryController {
     return this.categoryService.getAll();
   }
 
-  @Get(':id')
+  @Get('/:id')
   getOne(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
     return this.categoryService.getById(categoryId);
   }

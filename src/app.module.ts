@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { typeORMConfig } from './configs/typeorm.config';
 import { BrandsModule } from './brands/brands.module';
 import { CategoryModule } from './category/category.module';
+import { CategoryService } from './category/category.service';
 
 @Module({
   imports: [
