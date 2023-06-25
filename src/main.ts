@@ -6,15 +6,15 @@ import { ValidationPipe } from '@nestjs/common';
 const PORT = 8080;
 const handleListening = () => console.log(`✅ Server listenting on port ${PORT} 🚀 `);
 
-async function serverListen() {
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.useGlobalPipes(new ValidationPipe({
-    whitelist : true,
-    forbidNonWhitelisted : true,
-    transform: true 
-  }))
-
-
+  app.useGlobalPipes(new ValidationPipe());
+  app.enableCors();
+  // app.useGlobalPipes(new ValidationPipe({
+  //   whitelist : true,
+  //   forbidNonWhitelisted : true,
+  //   transform: true 
+  // }))
   await app.listen(PORT, handleListening);
 }
-serverListen();
+bootstrap();
