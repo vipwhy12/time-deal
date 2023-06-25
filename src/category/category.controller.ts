@@ -1,22 +1,44 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { Category } from './category.entity';
 import { DataSource } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { Product } from 'src/products/entities/product.entity';
 
 @Controller('category')
 export class CategoryController {
   constructor(private categoryService : CategoryService){}
 
-  @Post()
-  createCategory(@Body() categoryData : CreateCategoryDto){
-    return this.categoryService.createCategory(categoryData);
+  @Get()
+  getAll(){
+    return this.categoryService.getAll();
   }
 
   @Get(':id')
-  getCategory(@Param('id') brandId: number){
-    return this.categoryService.getCategoryById(brandId);
+  getOne(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
+    return this.categoryService.getById(categoryId);
   }
 
+  @Get('/product/:id')
+  getProducts(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
+    return this.categoryService.getProducts(categoryId);
+  }
+
+  @Post()
+  create(@Body() categoryData : CreateCategoryDto) {
+    return this.categoryService.create(categoryData);
+  }
+  
+
+  // @Patch(':id')
+  // patch(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) brandId: number,
+  //        @Body() categoryData: categoryData) {
+  //   return 'test';
+  // }
+
+  @Delete(':id')
+  remove(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) brandId: number){
+    return 'test';
+  }
   
 }

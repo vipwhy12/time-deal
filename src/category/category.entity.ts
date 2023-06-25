@@ -1,3 +1,5 @@
+import { type } from "os"
+import { Product } from "src/products/entities/product.entity"
 import {
   Entity,
   Tree,
@@ -5,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   TreeChildren,
   TreeParent,
-  TreeLevelColumn,BaseEntity
+  TreeLevelColumn,BaseEntity, OneToMany, ManyToOne
 } from "typeorm"
 
 @Entity()
@@ -19,6 +21,9 @@ export class Category extends BaseEntity{
 
   @Column()
   depth: number
+
+  @OneToMany(type => Product, product => product.category, {eager : true})
+  products: Product[]
 
   @TreeChildren()
   children: Category[]

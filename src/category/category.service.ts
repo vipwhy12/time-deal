@@ -1,25 +1,38 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { Category } from './category.entity';
-import { DataSource } from 'typeorm';
 import { CategoryRepository } from './category.repository';
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { Product } from 'src/products/entities/product.entity';
 
 @Injectable()
 export class CategoryService {
 
   constructor(private categoryRepository : CategoryRepository){}
 
-  async createCategory(createCategoryDto : CreateCategoryDto): Promise<Category>{
-    const parent = await this.getCategoryById(createCategoryDto.parent);
-    return this.categoryRepository.createCategory(createCategoryDto, parent);
+  async getAll(): Promise<Category[]>{
+    const trees = await this.categoryRepository.manager.getTreeRepository(Category).findTrees()
+    return trees;
   }
 
-  async getCategoryById(id : number):Promise<Category>{
-    const found = await this.categoryRepository.findOneBy({id});
+  async create(createCategoryDto : CreateCategoryDto): Promise<Category>{
+    if(createCategoryDto.parent){ createCategoryDto.parent =  await this.getById(createCategoryDto.parent.id);}
+    return this.categoryRepository.createCategory(createCategoryDto);
+  }
 
+  async getById(id : number):Promise<Category>{
+    const found = await this.categoryRepository.findOneBy({id});
     if(!found) {
       throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
     }
     return found;
+  }
+
+  
+  async getProducts(id : number): Promise<Product[]>{
+    const found = await this.categoryRepository.findOneBy({id});
+    if(!found){
+      throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
+    }
+    return found.products;
   }
 }

@@ -1,6 +1,6 @@
 import { ObjectId } from "typeorm";
 import { Category } from "../category.entity"
-import { IsNotEmpty, IsNumber, IsObject, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsString } from "class-validator";
 
 export class CreateCategoryDto{
   @IsString()
@@ -10,6 +10,6 @@ export class CreateCategoryDto{
   @IsNumber()
   depth: number;
 
-  @IsNumber()
-  parent : number;
+  @IsOptional()
+  parent : Category;
 }
