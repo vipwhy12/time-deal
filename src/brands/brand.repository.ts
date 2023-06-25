@@ -1,17 +1,21 @@
-import { Injectable } from "@nestjs/common";
-import { DataSource, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { Brand } from "./brand.entity";
 import { CustomRepository } from "./custom.repository";
+import { CreateBrandDto } from "./dto/create-brand.dto";
 
 @CustomRepository(Brand)
 export class BrandRepository extends Repository<Brand>{
 
-  // constructor(private dataSource: DataSource){}
-  //   super(Brand, dataSource.createEntityManager())
-  // }
+  async createBrand(createBrandDto: CreateBrandDto): Promise<Brand>{
+    
+    const { name, description, products } = createBrandDto = createBrandDto;
+    const brand = this.create({
+      name,
+      description,
+      products
+    })
 
-  async createBrand(brand: Brand): Promise<Brand>{
-    await brand.save();
+    await this.save(brand);
     return brand;
   }
 

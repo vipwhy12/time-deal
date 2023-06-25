@@ -9,15 +9,15 @@ export class BrandsController {
 
   constructor(private readonly brandsService: BrandsService) {}
 
-  // @Get()
-  // getAllBrand(): Promise<Brand[]>{
-  //   return this.brandsService.getAllBrands();
-  // }
+  @Get()
+  getAll(): Promise<Brand[]>{
+    return this.brandsService.getAll();
+  }
 
-  // @Get(':id')
-  // getBrandById(@Param('id') brandId: number): Promise<Brand>{
-  //   return this.brandsService.getBrandById(brandId);
-  // }
+  @Get(':id')
+  getById(@Param('id') brandId: number): Promise<Brand>{
+    return this.brandsService.getById(brandId);
+  }
 
   @Post()
   createBrand(@Body() brandData : CreateBrandDto){
@@ -45,9 +45,5 @@ export class BrandsController {
     return `브랜드 검색을 시도합니다. ${seachingBrand}`;
   }
 
-  @Get('rank')
-  rankBrand(){
-    return `가장 많이 판매된 상위 3개 브랜드명과 판매수량입니다.`
-  }
 
 }

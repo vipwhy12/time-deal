@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsObject, IsString } from "class-validator";
+import { IsNotEmpty, IsObject, IsString, IsOptional } from "class-validator";
 import { Product } from "src/products/entities/product.entity";
 import { Brand } from "../brand.entity";
 
@@ -10,15 +10,7 @@ export class CreateBrandDto{
   @IsNotEmpty()
   description: string;
 
-  // @IsObject({ each : true })
-  // products: Product[]
-
-  toEntity(): Brand{
-    const brand = new Brand();
-    brand.name = this.name;
-    brand.description = this.description;
-    // brand.products = this.products;
-
-    return brand;
-  }
+  @IsObject({ each : true })
+  @IsOptional()
+  products: Product[]
 }
