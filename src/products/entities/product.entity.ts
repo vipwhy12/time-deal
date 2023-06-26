@@ -1,6 +1,6 @@
 import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToMany } from "typeorm";
 import { Brand } from "../../brands/brand.entity";
-import { Sale } from "./sale.entity";
+import { Sale } from "../../sales/sale.entity";
 import { Category } from "src/category/category.entity";
 
 @Entity()

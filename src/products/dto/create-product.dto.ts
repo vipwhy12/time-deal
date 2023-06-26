@@ -1,7 +1,7 @@
 import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
 import { Brand } from "src/brands/brand.entity";
 import { Category } from "src/category/category.entity";
-import { Sale } from "../entities/sale.entity";
+import { Sale } from "../../sales/sale.entity";
 import { IsNull, ObjectId } from "typeorm";
 
 export class CreateProductDto{
