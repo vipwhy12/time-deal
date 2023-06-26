@@ -5,13 +5,15 @@ import { typeORMConfig } from './configs/typeorm.config';
 import { BrandsModule } from './brands/brands.module';
 import { CategoryModule } from './category/category.module';
 import { CategoryService } from './category/category.service';
+import { SalesModule } from './sales/sales.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(typeORMConfig),
     ProductsModule,
     BrandsModule,
-    CategoryModule
+    CategoryModule,
+    SalesModule
     ],
     controllers : [],
     providers : []
