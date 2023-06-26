@@ -8,7 +8,7 @@ export class BrandRepository extends Repository<Brand>{
 
   async findAll(){
     return await this.find({
-      loadRelationIds: true
+      relations : ["products"]
     })
   }
 
