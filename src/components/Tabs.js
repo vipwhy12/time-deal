@@ -3,8 +3,10 @@ import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Tab from 'react-bootstrap/Tab';
+import { useNavigate } from 'react-router-dom';
 
-function Category(props) {
+function Tabs(props) {
+  const navigate = useNavigate()
 
   if (!props.rootCategory){
     return ( <div>로딩중…</div>)
@@ -31,7 +33,9 @@ function Category(props) {
                         category.children.map((childCategory)=> {
                           return(
                             <>
-                              <Card>
+                              <Card 
+                                key={childCategory.id} 
+                                onClick={()=>{ navigate('category/' + childCategory.id, {state: { category: childCategory} })}}>
                               <Card.Body>{childCategory.name}</Card.Body>
                               </Card>
                             </>
@@ -52,4 +56,4 @@ function Category(props) {
   );
 }
 
-export default Category;
+export default Tabs;
