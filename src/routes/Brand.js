@@ -1,29 +1,60 @@
-import { useState } from 'react';
+import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
+import Search from '../components/Search';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
+
 
 function Brand(){
-  let[brand] = useState(["키르시", "칼하트", "커버낫"])
-  return(
-    <div>
-      <h1>브랜드 검색</h1>
-      <input type='text' placeholder='브랜드명을 작성해주세요' onChange={(e) => {console.log(e.target.value)}}/>
-      <Button variant="dark" onClick={()=>{}}>검색</Button>
-      <select></select>
-    
-      <div className='brand-rank'>
-        <h2> 브랜드 판매 순위 </h2>
-          {
-            brand.map(function(a, index){
-              return(
-                <div className='brand-rank__name' key={index}>
-                  <h3> {index + 1}. {brand[index]} </h3>
-                </div>
-              )
-            })
-          }
-      </div>
-    </div>
 
+  const [brands, setBrand] = useState(null)
+  const [isLoading, setIsLoading] = useState(true);
+  let navigate = useNavigate()
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/brands").then((response) => {
+      setBrand(response.data);
+      console.log(response.data)
+    });
+  }, []);
+
+  if (!brands) return (
+    <Spinner animation="border" variant="dark" />
+  )
+
+  return(
+    <>  
+      <div>
+        <Button variant="dark">브랜드 생성</Button>
+        <Button variant="dark">브랜드 삭제</Button>
+      </div>
+      <div>
+            <Table striped bordered hover size="sm">
+            <thead>
+              <tr>
+                <th></th>
+                <th>이름</th>
+                <th>설명</th>
+              </tr>
+            </thead>
+            <tbody>
+            {brands.map((brand) => (
+              <tr key={brand.id} onClick={() => { navigate('' + brand.id)}}>
+                <td>{brand.id}</td>
+                <td>{brand.name}</td>
+                <td>{brand.description}</td>
+              </tr>
+              ))}
+            </tbody>
+          </Table>
+      </div>
+
+      <div>
+        <Search/>
+      </div>
+  </>
   )
 }
 
