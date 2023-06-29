@@ -40,9 +40,9 @@ function Brand(){
               </tr>
             </thead>
             <tbody>
-            {brands.map((brand) => (
+            {brands.map((brand, index) => (
               <tr key={brand.id} onClick={() => { navigate('' + brand.id)}}>
-                <td>{brand.id}</td>
+                <td>{index + 1}</td>
                 <td>{brand.name}</td>
                 <td>{brand.description}</td>
               </tr>
