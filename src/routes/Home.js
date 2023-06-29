@@ -1,15 +1,13 @@
 import React, {useEffect, useState}  from "react";
 import axios from 'axios';
 import Search from "../components/Search";
-import Rank from "./Rank";
-import Tabs from "../components/Tabs";
+import Category from "../components/Category"
 
 
 function Home(){
   const [brands, setBrand] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState(null);
-  const [categories, setCategory] = useState(null);
+  const [rootCategory, setRootCategory] = useState(null);
 
   // Similar to componentDidMount and componentDidUpdate:
   useEffect(() => {
@@ -18,13 +16,14 @@ function Home(){
           console.log(response.data)
       });
 
-      axios.get("http://localhost:8080/category").then((response) =>{
-        setCategory(response.data);
+      axios.get("http://localhost:8080/category/root").then((response) =>{
+        setRootCategory(response.data);
         console.log(response.data);
-      })
+      });
+
   }, []);
 
-  if (!data || !categories) return (
+  if (!data && !rootCategory) return (
       <div>로딩중…</div>
   )
 
@@ -36,21 +35,21 @@ function Home(){
 
       <div>
         <div className='category-bar'>
-          <Tabs></Tabs>
+          <Category rootCategory={rootCategory}></Category>
         </div>
       </div>
     
-      <div className='Rank'>
+      {/* <div className='Rank'>
         <Rank></Rank>
       </div>
-      
+
           <div>
               {data.map((brand) => (
                   <div key={brand.id}>
                       <h1>{brand.name}</h1>
                   </div>
               ))}
-          </div>
+          </div> */}
       
     </div>
   )
