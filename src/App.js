@@ -10,7 +10,7 @@ import Menu from './components/Menu';
 import { Routes, Route } from 'react-router-dom'
 
 
-function App() {
+export default function App() {
   return (
     <div className='App'>
         <div className='menu'><Menu/></div>
@@ -33,4 +33,4 @@ function App() {
   );
 }
 
-export default App;
+

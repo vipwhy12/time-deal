@@ -1,10 +1,10 @@
 import React, {useEffect, useState}  from "react";
 import axios from 'axios';
 import Search from "../components/Search";
-import Category from "../components/Category"
+import Tabs from "../components/Tabs";
 
 
-function Home(){
+export default function Home(){
   const [brands, setBrand] = useState(null);
   const [data, setData] = useState(null);
   const [rootCategory, setRootCategory] = useState(null);
@@ -29,13 +29,13 @@ function Home(){
 
   return(
     <div>
-      <div className='BrandSearch'>
+      <div className='brand-search'>
         <Search></Search>
       </div>
 
       <div>
         <div className='category-bar'>
-          <Category rootCategory={rootCategory}></Category>
+          <Tabs rootCategory={rootCategory}></Tabs>
         </div>
       </div>
     
@@ -54,6 +54,3 @@ function Home(){
     </div>
   )
 }
-
-
-export default Home;

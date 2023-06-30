@@ -6,7 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import {Col, Row, Image, Button} from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 
-function BrandDetail(){
+export default function BrandDetail(){
   let {id} = useParams();
   const [brand, setBrand] = useState(null)
   const [products, setProducts] = useState(null)
@@ -80,4 +80,3 @@ function BrandDetail(){
   )
 }
 
-export default BrandDetail;
