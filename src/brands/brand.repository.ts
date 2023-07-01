@@ -1,9 +1,10 @@
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { Brand } from "./brand.entity";
-import { CustomRepository } from "../custom/custom.repository";
 import { CreateBrandDto } from "./dto/create-brand.dto";
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 
-@CustomRepository(Brand)
+@Injectable()
 export class BrandRepository extends Repository<Brand>{
 
   async findAll(){

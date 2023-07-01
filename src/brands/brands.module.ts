@@ -4,15 +4,13 @@ import { BrandsService } from './brands.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BrandRepository } from './brand.repository';
 import { Brand } from './brand.entity';
-import { CustomTypeOrmModule } from 'src/custom/customTypeOrmModule';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Brand]),
-    CustomTypeOrmModule.forCustomRepository([BrandRepository])
+    TypeOrmModule.forFeature([Brand])
   ],
   controllers: [BrandsController],
-  providers: [BrandsService],
-  exports: [BrandsService]
+  providers: [BrandsService, BrandRepository],
+  exports: [BrandsService, BrandRepository]
 })
 export class BrandsModule {}

@@ -1,11 +1,11 @@
 import { Repository } from "typeorm";
 import { Product } from "./entities/product.entity";
-import { CustomRepository } from "../custom/custom.repository"
 import { CreateProductDto } from "./dto/create-product.dto";
 import { Category } from "src/category/category.entity";
 import { Brand } from "src/brands/brand.entity";
+import { Injectable } from "@nestjs/common";
 
-@CustomRepository(Product)
+@Injectable()
 export class ProductRepository extends Repository<Product>{
 
   async findAll(){
