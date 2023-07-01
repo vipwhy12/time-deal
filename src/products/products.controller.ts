@@ -1,4 +1,4 @@
-import { Controller, Body, Get, Post, Inject} from '@nestjs/common';
+import { Controller, Body, Get, Post, Param, Inject} from '@nestjs/common';
 
 import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
@@ -21,8 +21,10 @@ export class ProductsController {
     return this.productService.getAll();
   }
 
-  // @Get(':id')
-  // getById(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number)
+  @Get(':id')
+  getById(@Param('id') productId: number){
+    return this.productService.getById(productId);
+  }
 
   @Post()
   async create(@Body() createProductDto : CreateProductDto){
@@ -30,5 +32,7 @@ export class ProductsController {
     const brand = await this.brandService.getById(createProductDto.brandId);
     return this.productService.create(createProductDto, category, brand);
   }
+
+
 
 }

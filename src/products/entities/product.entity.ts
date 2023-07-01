@@ -6,10 +6,13 @@ import { Category } from "src/category/category.entity";
 @Entity()
 export class Product extends BaseEntity{
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number
 
   @Column()
   name: string;
+
+  // @Column()
+  // description : string;
 
   @ManyToOne(type => Brand, brand => brand.products, {eager: false})
   brand: Brand;
