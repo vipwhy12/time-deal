@@ -10,8 +10,8 @@ export default function ProductDetail(){
 
   useEffect(() => {
     axios.get("http://localhost:8080/products/" + id).then((response) => {
-      setProduct(response.data[0]);
-      setBrand(response.data[0].brand)
+      setProduct(response.data);
+      setBrand(response.data.brand)
     });
   }, []);
 
