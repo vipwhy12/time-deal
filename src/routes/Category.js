@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
 import Table from 'react-bootstrap/Table';
 
 
-export default function Category(){
+export default function Category(props){
   const location = useLocation();
+  let navigate = useNavigate()
+
   const category = location.state.category;
   console.log(category)
   let {id} = useParams();
@@ -41,7 +43,7 @@ export default function Category(){
         products.map((product, index) => {
           return(
             <>
-            <tr key={product.id}>
+            <tr key={product.id} onClick={() => {navigate('/products/' + product.id)}}>
               <td>{index + 1}</td>
               <td>{product.name}</td>
               <td>Otto</td>
