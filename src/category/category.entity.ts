@@ -1,3 +1,4 @@
+import { BaseEntity } from "src/core/base.entity"
 import { Product } from "src/products/entities/product.entity"
 import {
   Entity,
@@ -5,13 +6,12 @@ import {
   Column,
   PrimaryGeneratedColumn,
   TreeChildren,
-  TreeParent,
-  TreeLevelColumn,BaseEntity, ManyToMany, JoinTable
+  TreeParent, ManyToMany, JoinTable
 } from "typeorm"
 
 @Entity()
 @Tree("closure-table")
-export class Category extends BaseEntity{
+export default class Category extends BaseEntity{
   @PrimaryGeneratedColumn()
   id: number
 

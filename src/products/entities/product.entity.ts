@@ -1,13 +1,12 @@
-import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToMany } from "typeorm";
+import { Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn, JoinColumn, ManyToMany } from "typeorm";
 import { Brand } from "../../brands/brand.entity";
 import { Sale } from "../../sales/sale.entity";
-import { Category } from "src/category/category.entity";
+import Category from "src/category/category.entity";
+import { BaseEntity } from "src/core/base.entity";
+
 
 @Entity()
 export class Product extends BaseEntity{
-  @PrimaryGeneratedColumn()
-  id: number
-
   @Column()
   name: string;
 
