@@ -1,0 +1,29 @@
+import { useState, useEffect  } from "react";
+import { useParams } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
+import axios from 'axios';
+
+export default function ProductDetail(){
+  const {id} = useParams();
+  const [product, setProduct] = useState(null)
+  const [brand, setBrand] = useState(null)
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/products/" + id).then((response) => {
+      setProduct(response.data[0]);
+      setBrand(response.data[0].brand)
+    });
+  }, []);
+
+  if (!product && !brand) return (
+    <Spinner animation="border" variant="dark" />
+  )
+
+  return(
+    <>
+    <h1>{product.name}</h1>
+    <h1>{brand.name}</h1>
+    </>
+  )
+
+}
