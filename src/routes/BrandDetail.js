@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import {Col, Row, Image, Button} from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 
 export default function BrandDetail(){
-  let {id} = useParams();
+  const {id} = useParams();
+  const navigate = useNavigate()
+
   const [brand, setBrand] = useState(null)
   const [products, setProducts] = useState(null)
+
 
   useEffect(() => {
     axios.get("http://localhost:8080/brands/" + id).then((response) => {
       setBrand(response.data);
       setProducts(response.data.products);
-      console.log(response.data.products)
     });
   }, []);
 
@@ -63,7 +65,7 @@ export default function BrandDetail(){
         products.map((product, index) => {
           return(
             <>
-            <tr key={product.id}>
+            <tr key={product.id} onClick={() => {navigate('/products/' + product.id, {state : {product : product}})}}>
               <td>{index + 1}</td>
               <td>{product.name}</td>
               <td>Otto</td>

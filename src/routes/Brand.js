@@ -7,12 +7,14 @@ import Spinner from 'react-bootstrap/Spinner';
 import {Col, Row} from "react-bootstrap";
 
 export default function Brand(){
+  const navigate = useNavigate()
   const [brands, setBrand] = useState(null)
-  let navigate = useNavigate()
 
   useEffect(() => {
     axios.get("http://localhost:8080/brands").then((response) => {
       setBrand(response.data);
+      console.log("🚀🚀SET Brand")
+      console.log(response.data)
     });
   }, []);
 

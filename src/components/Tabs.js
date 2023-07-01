@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Tabs(props) {
   const navigate = useNavigate()
+  // console.log(props.rootCategory)
 
   if (!props.rootCategory){
     return ( <div>로딩중…</div>)
