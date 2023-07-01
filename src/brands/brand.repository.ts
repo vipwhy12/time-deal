@@ -7,6 +7,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 @Injectable()
 export class BrandRepository extends Repository<Brand>{
 
+  
+
   async findAll(){
     return await this.find({
       relations : ["products"]
@@ -14,7 +16,6 @@ export class BrandRepository extends Repository<Brand>{
   }
 
   async createBrand(createBrandDto: CreateBrandDto): Promise<Brand>{
-    
     const { name, description, products } = createBrandDto = createBrandDto;
     const brand = this.create({
       name,

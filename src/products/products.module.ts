@@ -16,4 +16,6 @@ import { BrandsModule } from 'src/brands/brands.module';
   providers: [ProductsService, ProductRepository]
 })
 
+
+
 export class ProductsModule {}
