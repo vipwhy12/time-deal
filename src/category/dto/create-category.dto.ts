@@ -10,5 +10,6 @@ export class CreateCategoryDto{
   depth: number;
 
   @IsOptional()
-  parent : Category;
+  @IsNumber()
+  parentId : number;
 }
