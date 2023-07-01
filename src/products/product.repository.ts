@@ -10,7 +10,7 @@ export class ProductRepository extends Repository<Product>{
 
   async findAll(){
     return await this.find({
-      loadRelationIds: true
+      relations : ["category", "brand"]
     })
   }
 
