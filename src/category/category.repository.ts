@@ -7,8 +7,9 @@ import { CreateCategoryDto } from "./dto/create-category.dto";
 @CustomRepository(Category)
 export class CategoryRepository extends Repository<Category>{
 
-  async createCategory(createCategoryDto: CreateCategoryDto): Promise<Category>{
-    const {name, depth, parent} = createCategoryDto;
+  async createCategory(createCategoryDto: CreateCategoryDto, parent?: Category): Promise<Category>{
+    const {name, depth} = createCategoryDto;
+
     const category = this.create({
       name,
       depth,
