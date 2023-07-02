@@ -1,12 +1,11 @@
 import {Container, Nav, Navbar} from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
-export default function Menu(){
+export default function NavigationBar(){
   const navigate = useNavigate()
 
   return(
     <>
-    <div className='nav-bar'>
     <Navbar bg="black" data-bs-theme="dark">
       <Container>
         <Navbar.Brand onClick={() => {navigate('')}}>NoTag</Navbar.Brand>
@@ -16,7 +15,6 @@ export default function Menu(){
         </Nav>
       </Container>
     </Navbar>
-    </div>
     </>
   )
 }
