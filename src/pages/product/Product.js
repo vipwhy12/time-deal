@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import axios from 'axios';
 
-export default function ProductDetail(){
+export default function Product(){
   const {id} = useParams();
   const [product, setProduct] = useState(null)
   const [brand, setBrand] = useState(null)

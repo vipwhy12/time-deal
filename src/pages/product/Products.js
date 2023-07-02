@@ -5,7 +5,7 @@ import Table from 'react-bootstrap/Table';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function Product(){
+export default function Products(){
   const [products, setProduct] = useState(null)
   const navigate = useNavigate()
 

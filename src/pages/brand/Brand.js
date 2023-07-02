@@ -3,12 +3,10 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
-import {Col, Row, Image, Button} from "react-bootstrap";
-import Table from 'react-bootstrap/Table';
-import BrandDetailHeader from '../components/brand/BrandDetailHeader';
-import BrandDetailList from '../components/brand/BrandDetailList';
+import BrandDetailHeader from '../../components/brand/BrandDetailHeader';
+import BrandDetailList from '../../components/brand/BrandDetailList';
 
-export default function BrandDetail(){
+export default function Brand(){
   const {id} = useParams();
   const navigate = useNavigate()
 

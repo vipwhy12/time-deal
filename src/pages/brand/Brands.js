@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner';
 
-import BrandHeader from '../components/brand/BrandHeader';
-import BrandList from '../components/brand/BrandList';
+import BrandHeader from '../../components/brand/BrandHeader';
+import BrandList from '../../components/brand/BrandList';
 
 
-export default function Brand(){
+export default function Brands(){
   const [brands, setBrand] = useState(null)
 
   useEffect(() => {
