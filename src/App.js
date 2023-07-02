@@ -1,14 +1,16 @@
 import './css/App.css'
-import Home from './routes/Home';
-import Brand from './routes/Brand'
-import Product from './routes/Product'
-import Rank  from './routes/Rank';
-import Category from './routes/Category';
-import BrandDetail from './routes/BrandDetail'
-import ProductDetail from './routes/ProductDetail'
+import Home from './pages/Home';
+import Brand from './pages/Brand'
+import Product from './pages/Product'
+import Rank  from './pages/Rank';
+import Category from './pages/Category';
+import BrandDetail from './pages/BrandDetail'
+import ProductDetail from './pages/ProductDetail'
+import BrandCreate from './pages/BrandCreate'
 
 import { Routes, Route } from 'react-router-dom'
 import NavigationBar from './components/NavigationBar';
+import NotFound from './pages/NotFound';
 
 
 export default function App() {
@@ -24,7 +26,7 @@ export default function App() {
 
           <Route path='/brands' element={<Brand/>}/>
           <Route path='/brands/:id' element= {<BrandDetail/>}/>
-          {/* <Route path='/brand/'/> */}
+          <Route path='/brands/create' element={<BrandCreate/>}/>
 
           <Route path='/category' element={<></>}/>
           <Route path='/category/:id' element={<Category/>}/>
@@ -33,7 +35,7 @@ export default function App() {
           <Route path='/products/:id' element={<ProductDetail/>}/>
           
           <Route path='/rank' element={<Rank/>}/>
-          <Route path='*' element= {<div> 없는 페이지입니다. </div>}></Route>
+          <Route path='*' element= {<NotFound/>}></Route>
         </Routes>
         </div>
     </div>
