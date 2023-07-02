@@ -5,6 +5,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
 import {Col, Row, Image, Button} from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
+import BrandDetailHeader from '../components/brand/BrandDetailHeader';
+import BrandDetailList from '../components/brand/BrandDetailList';
 
 export default function BrandDetail(){
   const {id} = useParams();
@@ -28,56 +30,8 @@ export default function BrandDetail(){
   
   return (
     <>
-    <Row style={{height: "30vh"}}>
-      <Col xs={2} className="justify-content-center align-items-center" style={{display: "flex"}}>
-        <div><Image src='https://i.namu.wiki/i/Po1Av_7BeY1-tSa_OpHQjZvuc-bDa45vrqO_Ci8uLLFn2R7yRLJZcYHVFwwwcm2_BGPPdPMNQRX69xgW809nrmb3jObCRqlREtudg9sg8MsJSBxlJ3AzkbYUVIxrbHnaSzwOgB-c7jJEjmxp66sc_g.webp' roundedCircle style={{width: "100%", zIndex: "3"}}></Image></div>
-      </Col>
-
-      <Col xs={7} className="align-items-center" style={{display: "flex"}}>
-        <div className="" style={{background: "", display: "flex", flexDirection: "column"}}>
-          <h1>{brand.name}</h1>
-          <span>{brand.description}</span>
-        </div>
-      </Col>
-
-      <Col className="d-flex flex-row align-items-center">
-        <div style={{width: "100%"}}>
-            <div className="d-flex flex-column gap-3 justify-content-center">
-                <Button variant="dark" size="lg" style={{width: "100%"}}>브랜드 수정</Button>
-                <Button variant="dark" size="lg" style={{width: "100%"}}>브랜드 삭제</Button>
-            </div>
-        </div>
-      </Col>
-
-    </Row>
-
-    <Table striped bordered hover variant="dark" >
-      <thead>
-        <tr>
-          <th></th>
-          <th>상품명</th>
-          <th>Last Name</th>
-          <th>Username</th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-        products.map((product, index) => {
-          return(
-            <>
-            <tr key={product.id} onClick={() => {navigate('/products/' + product.id, {state : {product : product}})}}>
-              <td>{index + 1}</td>
-              <td>{product.name}</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-            </tr>
-            </>
-          )}
-        )
-        }
-      </tbody>
-    </Table>
-    
+      <BrandDetailHeader brand={brand}/>
+      <BrandDetailList products={products}/>
     </>  
   )
 }
