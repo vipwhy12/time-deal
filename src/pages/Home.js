@@ -1,8 +1,7 @@
 import React, {useEffect, useState}  from "react";
 import axios from 'axios';
-import Search from "../components/search/Search";
+import LatestBrand from '../components/brand/LatestBrand'
 import CategoryComponent from "../components/category/CategoryComponent";
-import Rank from "./Rank";
 
 
 export default function Home(){
@@ -10,9 +9,9 @@ export default function Home(){
   const [rootCategory, setRootCategory] = useState(null);
 
   useEffect(() => {
-      axios.get("http://localhost:8080/brands").then((response) => {
+      axios.get("http://localhost:8080/brands/new").then((response) => {
         setBrand(response.data);
-        console.log("🚀🚀SET Brand")
+        console.log("🚀🚀SET New Brand")
         console.log(response.data)
       });
 
@@ -29,9 +28,8 @@ export default function Home(){
 
   return(
     <main>
-      <Search brands={brands}/>
+      <LatestBrand brands={brands}/>
       <CategoryComponent rootCategory={rootCategory}/>
-      {/* <Rank/> */}
     </main>
   )
 }
