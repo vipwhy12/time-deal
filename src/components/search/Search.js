@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import {BiSearchAlt} from "react-icons/bi";
+import { Button } from 'react-bootstrap';
 import SearchDisplay from "./SearchDisplay";
 import Filters from "./Filters";
+
 
 function Search({brands}) {
   const [userInput, setUserInput] = useState(null)
@@ -13,17 +14,15 @@ function Search({brands}) {
     }
   }, [brands]);
 
-  if (!brand){
-    return (
-      <div>로딩중…</div>
-    )
+  if (!brand) {
+    return <div>로딩중…</div>;
   } 
 
   return (
     <article className="search">
-      <h2> 어떤 브랜드를 찾으시나요?</h2>
-        <Filters setUserInput={setUserInput}/>
-        <SearchDisplay brands={brands} userInput={userInput}/>
+      <Filters setUserInput={setUserInput}/>
+      <SearchDisplay brands={brands} userInput={userInput}/>
+      <Button variant="outline-light">Search</Button>
     </article>
   );
 }

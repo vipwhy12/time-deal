@@ -1,3 +1,4 @@
+import {Form} from 'react-bootstrap';
 
 export default function Filters({setUserInput}){
 
@@ -5,11 +6,15 @@ export default function Filters({setUserInput}){
     setUserInput(e.target.value.toLowerCase());
     }
 
-  return(
+  return (
     <article>
-      <input 
-        placeholder='브랜드명을 작성해주세요' 
-        onChange={ getValue }/>
+      <Form.Control
+        type="search"
+        placeholder="Search Brands"
+        className="me-2"
+        aria-label="Search"
+        onChange={getValue}
+      />
     </article>
-  )
+  );
 }
