@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, HttpStatus, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CategoryService } from './category.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Category } from './category.entity';
+import {Category} from './category.entity';
 
 @Controller('category')
 export class CategoryController {
@@ -13,20 +13,19 @@ export class CategoryController {
   }
 
   @Get('/root')
-  async getRoot(): Promise<Category[]>{
+  getRoot(): Promise<Category[]>{
     return this.categoryService.getRoot();
   }
 
   @Get('/:id')
-  getOne(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
+  getById(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
     return this.categoryService.getById(categoryId);
   }
 
 
-  @Get('/childrenProduct/:id')
-  async getChildrenProduct(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
-    const parent = await this.getOne(categoryId);
-    return this.categoryService.getChildrenProduct(categoryId, parent);
+  @Get('/descendants/:id')
+  async getDescendantsTree(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
+    return this.categoryService.getDescendantsTree(categoryId);
   }
 
 
@@ -37,10 +36,10 @@ export class CategoryController {
 
   
 
-  @Delete('/:id')
-  delete(@Param('id', ParseIntPipe) id: number): Promise<void>{
-    return this.categoryService.delete(id);
-  }
+  // @Delete('/:id')
+  // delete(@Param('id', ParseIntPipe) id: number): Promise<void>{
+  //   return this.categoryService.delete(id);
+  // }
   
 
   // @Patch(':id')

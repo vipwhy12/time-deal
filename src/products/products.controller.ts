@@ -10,11 +10,7 @@ import { BrandsService } from 'src/brands/brands.service';
 @Controller('products')
 export class ProductsController {
 
-  constructor(
-    private productService: ProductsService, 
-    private categoryService: CategoryService,
-    private brandService : BrandsService
-    ){}
+  constructor(private productService: ProductsService){}
 
   @Get()
   getAll(): Promise<Product[]>{
@@ -28,9 +24,7 @@ export class ProductsController {
 
   @Post()
   async create(@Body() createProductDto : CreateProductDto){
-    const category = await this.categoryService.getById(createProductDto.categoryId);
-    const brand = await this.brandService.getById(createProductDto.brandId);
-    return this.productService.create(createProductDto, category, brand);
+    return this.productService.create(createProductDto);
   }
 
 
