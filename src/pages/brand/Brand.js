@@ -1,36 +1,38 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import BrandHeader from '../../components/brand/BrandHeader';
+import ProductList from '../../components/product/ProductList';
+import Loading from '../../components/Loading'
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
-import Spinner from 'react-bootstrap/Spinner';
-import BrandDetailHeader from '../../components/brand/BrandDetailHeader';
-import BrandDetailList from '../../components/brand/BrandDetailList';
+
 
 export default function Brand(){
   const {id} = useParams();
-  const navigate = useNavigate()
-
   const [brand, setBrand] = useState(null)
   const [products, setProducts] = useState(null)
 
 
   useEffect(() => {
-    axios.get("http://localhost:8080/brands/" + id).then((response) => {
-      setBrand(response.data);
-      setProducts(response.data.products);
+    axios.get("http://localhost:8080/brands/" + id).then(({data}) => {
+      setBrand(data);
+      setProducts(data.products);
     });
   }, []);
 
-  if (!brand) return (
-    <Spinner animation="border" variant="dark" />
-  )
-
+  if(!brand){
+    return (<Loading />)
+  }
   
   return (
     <>
-      <BrandDetailHeader brand={brand}/>
-      <BrandDetailList products={products}/>
-    </>  
-  )
+      <header>
+        <BrandHeader brand={brand} />
+      </header>
+
+      <main>
+        <ProductList products={products} />
+      </main>
+    </>
+  );
 }
 
