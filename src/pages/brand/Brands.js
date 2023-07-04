@@ -1,9 +1,8 @@
+import BrandsHeader from '../../components/brand/BrandsHeader';
+import BrandsList from '../../components/brand/BrandsList';
+import Loading from '../../components/Loading'
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Spinner from 'react-bootstrap/Spinner';
-
-import BrandHeader from '../../components/brand/BrandHeader';
-import BrandList from '../../components/brand/BrandList';
 
 
 export default function Brands(){
@@ -17,14 +16,20 @@ export default function Brands(){
     });
   }, []);
 
-  if (!brands) return (
-    <Spinner animation="border" variant="dark" />
-  )
+  if (!brands){
+    return (<Loading />)
+  }
+
 
   return(
-    <>  
-      <BrandHeader/>
-      <BrandList brands={brands}/>
+    <>
+      <header>
+        <BrandsHeader />
+      </header>  
+      
+      <main>
+        <BrandsList brands={ brands } />
+      </main>
     </>
   )
 }
