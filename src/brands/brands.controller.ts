@@ -14,14 +14,22 @@ export class BrandsController {
     return this.brandsService.getAll();
   }
 
+  
+  @Get('/new')
+  getNewBrands(){
+    return this.brandsService.getNewBrands();
+  }
+
+
   @Get(':id')
   getById(@Param('id') brandId: number): Promise<Brand>{
     return this.brandsService.getById(brandId);
   }
 
+
   @Post()
-  createBrand(@Body() brandData : CreateBrandDto){
-    return this.brandsService.createBrand(brandData);
+  create(@Body() brandData : CreateBrandDto){
+    return this.brandsService.create(brandData);
   }
 
   // @Delete(':id')
@@ -38,12 +46,5 @@ export class BrandsController {
   //   }
   // }
   
-
-  // @Get('search')
-  // searchBrand(@Query('brand') seachingBrand: string){
-  //   //brands/search?brand=키르시
-  //   return `브랜드 검색을 시도합니다. ${seachingBrand}`;
-  // }
-
 
 }
