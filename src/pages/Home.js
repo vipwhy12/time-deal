@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import LatesBrands from "../components/brand/LatesBrands";
-import LatesProducts from "../components/product/LatestProduct";
 import Loading from "../components/Loading";
+import LatestData from "../components/LatestData";
 
 export default function Home() {
   const [brands, setBrands] = useState(null);
@@ -36,8 +35,9 @@ export default function Home() {
 
   return (
     <main>
-      <LatesBrands brands={brands} />
-      <LatesProducts products={products} />
+      <LatestData data={brands} title="최신 브랜드" url="/brands/" />
+      <LatestData data={products} title="최신 상품" url="/products/" />
+
       {/* <CategoryComponent rootCategory={rootCategory} allCategory={allCategory}/> */}
     </main>
   );
