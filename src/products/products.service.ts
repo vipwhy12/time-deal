@@ -4,13 +4,16 @@ import { ProductRepository } from './product.repository';
 import { CreateProductDto } from './dto/create-product.dto';
 import { CategoryRepository } from 'src/category/category.repository';
 import { BrandRepository } from 'src/brands/brand.repository';
+import { Category } from 'src/category/category.entity';
+import { SaleRepository } from 'src/sales/sale.repository';
 
 @Injectable()
 export class ProductsService {
   constructor(
     private productRepository : ProductRepository,
     private categoryRepository : CategoryRepository,
-    private brandRepository : BrandRepository
+    private brandRepository : BrandRepository,
+    // private salesRepository : SaleRepository
     ){}
 
   getAll(): Promise<Product[]> {
@@ -32,15 +35,28 @@ export class ProductsService {
   } 
 
   async create(createProductDto : CreateProductDto){
-    const foundCategory = await this.categoryRepository.getById(createProductDto.categoryId);
     const foundBrand = await this.brandRepository.getById(createProductDto.brandId);
+    const foundCategory : Category[] = [];
 
-    if(!foundCategory || !foundBrand) {
-      console.log("foundCategory : " + foundCategory)
-      console.log("foundBrand : " + foundBrand)
-      
-      throw new NotFoundException(`브랜드 혹은 카테고리를 찾을 수 없습니다.`);
+    for (const categoryId of createProductDto.categoryId) {
+      const category = await this.categoryRepository.getById(categoryId);
+
+      if (category) {
+        foundCategory.push(category);
+      } else {
+        console.log("foundcategory : " + foundBrand)
+        throw new NotFoundException(`카테고리를 찾을 수 없습니다.`);
+      }
     }
-    return this.productRepository.create(createProductDto, foundCategory, foundBrand);
+
+    if(!foundBrand) {
+      throw new NotFoundException(`${createProductDto.brandId} : 브랜드를 찾을 수 없습니다.`);
+    }
+
+    const createdProduct = await this.productRepository.create(createProductDto, foundCategory, foundBrand);
+
+
+
+    return createdProduct
   }
 }

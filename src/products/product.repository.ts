@@ -31,11 +31,11 @@ export class ProductRepository {
     });
   }
 
-  async create(createProductDto:CreateProductDto, category: Category, brand : Brand){
+  async create(createProductDto:CreateProductDto, category: Category[], brand : Brand){
     const { name } = createProductDto;
     const product = this.productRepository.create({
       name,
-      category : [category],
+      category : category,
       brand : brand
     })
     await this.productRepository.save(product);

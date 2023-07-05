@@ -1,8 +1,7 @@
 import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
-import { Brand } from "src/brands/brand.entity";
-import { Category } from "src/category/category.entity";
 import { Sale } from "../../sales/sale.entity";
-import { IsNull, ObjectId } from "typeorm";
+import { Transform, Type } from "class-transformer";
+
 
 export class CreateProductDto{
   @IsNotEmpty()
@@ -14,8 +13,9 @@ export class CreateProductDto{
   brandId : number
 
   @IsNotEmpty()
-  @IsNumber()
-  categoryId: number
+  @IsNumber({}, { each: true })
+  @Transform(({ value }) => value.map(Number))
+  categoryId: number[]
 
   @IsOptional()
   sale : Sale
