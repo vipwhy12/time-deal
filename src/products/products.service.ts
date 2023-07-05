@@ -17,6 +17,10 @@ export class ProductsService {
     return this.productRepository.getAll();
   }
 
+  getNewProducts(): Promise<Product[]> {
+    return this.productRepository.getNewProducts();
+  }
+
   getById(id : number){
     const found = this.productRepository.getById(id);
 
@@ -39,6 +43,4 @@ export class ProductsService {
     }
     return this.productRepository.create(createProductDto, foundCategory, foundBrand);
   }
-
-
 }

@@ -17,6 +17,11 @@ export class ProductsController {
     return this.productService.getAll();
   }
 
+  @Get('/new')
+  getNewProducts(){
+    return this.productService.getNewProducts();
+  }
+
   @Get(':id')
   getById(@Param('id') productId: number){
     return this.productService.getById(productId);
