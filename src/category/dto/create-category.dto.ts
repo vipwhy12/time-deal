@@ -6,9 +6,6 @@ export class CreateCategoryDto{
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
-  depth: number;
-
   @IsOptional()
   @IsNumber()
   parentId : number;
