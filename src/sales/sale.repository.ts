@@ -3,7 +3,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Sale } from "./sale.entity";
 import { Repository } from "typeorm";
 import { Product } from "src/products/entities/product.entity";
-import { CreateProductDto } from "src/products/dto/create-product.dto";
 import { CreateSaleDto } from "./dto/create-sale.dto";
 import { Brand } from "src/brands/brand.entity";
 import { Category } from "src/category/category.entity";
@@ -19,16 +18,19 @@ export class SaleRepository{
         "product" : true , 
         "category": true ,
         "brand" : true
-      }, order : {
+      }, 
+      order : {
         salesCount : "ASC"
       }
     })
   }
 
   async create(product : Product, brand : Brand, categories :Category[]){
+    const SALES_DEFAULT_VALUE = 0;
+
     for (const category of categories) {
       const sale: CreateSaleDto = this.saleRepository.create({
-        salesCount: 0,
+        salesCount: SALES_DEFAULT_VALUE,
         product : product,
         category: category,
         brand : brand
@@ -39,6 +41,7 @@ export class SaleRepository{
   }
 
   async getTopBrand(){
+    const GET_SIZE : number = 3;
     const topBrand = await this.saleRepository
       .createQueryBuilder('sale')
       .select('sale.brandId', 'brandId')
@@ -47,9 +50,20 @@ export class SaleRepository{
       .innerJoin('sale.brand', 'brand')
       .groupBy('sale.brandId')
       .orderBy('sum', 'DESC')
-      .limit(3)
+      .limit(GET_SIZE)
       .getRawMany();
 
     return topBrand
-    }
+  }
+
+  async getBrandSales(brandId : number) : Promise<Sale[]>{
+    return await this.saleRepository.find({ 
+      where : {brandId : brandId},
+      relations : { 
+        "product" : true , 
+        "category": true ,
+        "brand" : true
+      }
+    })
+  }
 }

@@ -6,8 +6,8 @@ import { CategoryRepository } from 'src/category/category.repository';
 import { BrandRepository } from 'src/brands/brand.repository';
 import { Category } from 'src/category/category.entity';
 import { SaleRepository } from 'src/sales/sale.repository';
-import { CreateSaleDto } from 'src/sales/dto/create-sale.dto';
-import { Sale } from 'src/sales/sale.entity';
+
+
 
 @Injectable()
 export class ProductsService {
