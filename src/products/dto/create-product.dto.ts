@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
 import { Sale } from "../../sales/sale.entity";
-import { Transform, Type } from "class-transformer";
+import { Transform } from "class-transformer";
 
 
 export class CreateProductDto{
