@@ -6,6 +6,8 @@ import { CategoryRepository } from 'src/category/category.repository';
 import { BrandRepository } from 'src/brands/brand.repository';
 import { Category } from 'src/category/category.entity';
 import { SaleRepository } from 'src/sales/sale.repository';
+import { CreateSaleDto } from 'src/sales/dto/create-sale.dto';
+import { Sale } from 'src/sales/sale.entity';
 
 @Injectable()
 export class ProductsService {
@@ -13,7 +15,7 @@ export class ProductsService {
     private productRepository : ProductRepository,
     private categoryRepository : CategoryRepository,
     private brandRepository : BrandRepository,
-    // private salesRepository : SaleRepository
+    private saleRepository : SaleRepository
     ){}
 
   getAll(): Promise<Product[]> {
@@ -53,10 +55,10 @@ export class ProductsService {
       throw new NotFoundException(`${createProductDto.brandId} : 브랜드를 찾을 수 없습니다.`);
     }
 
-    const createdProduct = await this.productRepository.create(createProductDto, foundCategory, foundBrand);
+    const created = await this.productRepository.create(createProductDto, foundCategory, foundBrand);
+    const createdCategory = await this.productRepository.getById(created.id)
+    const createSale = await this.saleRepository.create(createdCategory, foundBrand, foundCategory);
 
-
-
-    return createdProduct
+    return created
   }
 }
