@@ -1,21 +1,21 @@
 import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "../products/entities/product.entity";
 import { BaseEntity } from "src/core/base.entity";
-import { Brand } from "src/brands/brand.entity";
 import { Category } from "src/category/category.entity";
+import { Brand } from "src/brands/brand.entity";
 
 @Entity()
 export class Sale extends BaseEntity{
   @Column()
   salesCount : number;
 
-  @Column()
-  categoryId : number;
+  @ManyToOne(type => Product, product => product.sales)
+  category : Category;
 
-  @Column()
-  brandId : number;
+  @ManyToOne(type => Product, product => product.sales)
+  brand : Brand;
 
-  @OneToMany(type => Product, product => product.sale)
-  products : Product[];
+  @ManyToOne(type => Product, product => product.sales)
+  product : Product;
 
 }

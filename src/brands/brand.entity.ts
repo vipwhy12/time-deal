@@ -1,6 +1,8 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Product } from "../products/entities/product.entity";
 import { BaseEntity } from "src/core/base.entity";
+import { Sale } from "src/sales/sale.entity";
+import { type } from "os";
 
 @Entity()
 export class Brand extends BaseEntity{
@@ -13,6 +15,9 @@ export class Brand extends BaseEntity{
   @Column()
   description: string
 
-  @OneToMany(type => Product, product => product.brand, { eager : true })
+  @OneToMany(type => Product, product => product.brand)
   products : Product[]
+
+  @OneToMany(type=> Sale, sale=> sale.brand)
+  sales : Sale[]
 }

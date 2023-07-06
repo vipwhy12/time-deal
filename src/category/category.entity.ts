@@ -1,6 +1,6 @@
 import { BaseEntity } from "src/core/base.entity"
-import { CategoryProduct } from "src/products/entities/category.products.entity"
 import { Product } from "src/products/entities/product.entity"
+import { Sale } from "src/sales/sale.entity"
 import {
   Entity,
   Tree,
@@ -19,9 +19,13 @@ export class Category extends BaseEntity{
 
   @Column()
   name: string
-  
-  @OneToMany(() => CategoryProduct, (categoryProduct) => categoryProduct.category)
-  categoryProducts: CategoryProduct[];
+
+  @ManyToMany(() => Product, (product) => product.category, {eager : true})
+  @JoinTable()
+  products: Product[]
+
+  @OneToMany(type=> Sale, sale=> sale.brand)
+  sales : Sale[]
 
   @TreeChildren()
   children: Category[]
