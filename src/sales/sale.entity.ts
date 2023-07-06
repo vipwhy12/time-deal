@@ -9,10 +9,10 @@ export class Sale extends BaseEntity{
   @Column()
   salesCount : number;
 
-  @ManyToOne(type => Product, product => product.sales)
+  @ManyToOne(type => Category, category => category.sales)
   category : Category;
 
-  @ManyToOne(type => Product, product => product.sales)
+  @ManyToOne(type => Brand, brand => brand.sales)
   brand : Brand;
 
   @ManyToOne(type => Product, product => product.sales)

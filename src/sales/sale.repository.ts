@@ -19,24 +19,37 @@ export class SaleRepository{
         "product" : true , 
         "category": true ,
         "brand" : true
+      }, order : {
+        salesCount : "ASC"
       }
     })
   }
 
   async create(product : Product, brand : Brand, categories :Category[]){
     for (const category of categories) {
-      const sale: CreateSaleDto = {
+      const sale: CreateSaleDto = this.saleRepository.create({
         salesCount: 0,
+        product : product,
         category: category,
-        brand: brand,
-        product: product
-      };
-      const createdSale = await this.saleRepository.save(sale);
-      console.log(createdSale)
-    }
-    
+        brand : brand
+      })
+
+      const createSale = await this.saleRepository.save(sale);
+    }    
   }
 
+  async getTopBrand(){
+    const topBrand = await this.saleRepository
+      .createQueryBuilder('sale')
+      .select('sale.brandId', 'brandId')
+      .select('Max(brand.name)', 'brandName')
+      .addSelect('SUM(sale.salesCount)', 'sum')
+      .innerJoin('sale.brand', 'brand')
+      .groupBy('sale.brandId')
+      .orderBy('sum', 'DESC')
+      .limit(3)
+      .getRawMany();
 
-
+    return topBrand
+    }
 }

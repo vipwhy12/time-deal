@@ -24,7 +24,7 @@ export class Category extends BaseEntity{
   @JoinTable()
   products: Product[]
 
-  @OneToMany(type=> Sale, sale=> sale.brand)
+  @OneToMany(type=> Sale, sale=> sale.category)
   sales : Sale[]
 
   @TreeChildren()

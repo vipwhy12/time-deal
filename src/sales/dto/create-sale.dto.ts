@@ -8,10 +8,12 @@ export class CreateSaleDto{
   @IsNumber()
   salesCount : number;
 
-  category : Category
+  @IsNotEmpty()
+  category : Category;
 
+  @IsNotEmpty()
   brand : Brand;
-
+  
+  @IsNotEmpty()
   product : Product;
-
 }
