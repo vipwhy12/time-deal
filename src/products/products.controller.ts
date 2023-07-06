@@ -3,8 +3,6 @@ import { Controller, Body, Get, Post, Param, Inject} from '@nestjs/common';
 import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
 import { CreateProductDto } from './dto/create-product.dto';
-import { CategoryService } from 'src/category/category.service';
-import { BrandsService } from 'src/brands/brands.service';
 
 
 @Controller('products')
@@ -31,7 +29,5 @@ export class ProductsController {
   async create(@Body() createProductDto : CreateProductDto){
     return this.productService.create(createProductDto);
   }
-
-
 
 }
