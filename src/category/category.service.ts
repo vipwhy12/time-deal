@@ -20,6 +20,7 @@ export class CategoryService {
 
   async getById(id : number):Promise<Category>{
     const found = await this.categoryRepository.getById(id);
+
     if(!found) {
       throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
     }
@@ -27,10 +28,23 @@ export class CategoryService {
   }
 
   
-  async getDescendantsTree(id : number): Promise<Category>{
+  async getDescendantsTree(id : number):Promise<Product[]>{
     const found = await this.categoryRepository.getDescendantsTree(id)
+    
     if(!found){
       throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
+    }
+
+    const descendantsTreeProducts = this.getAllProducts(found)
+    return descendantsTreeProducts;
+  }
+
+
+  async getAncestorsTree(id: number):Promise<Category[]>{
+    const found = await this.categoryRepository.getAncestorsTree(id);
+
+    if(!found){
+      throw new NotFoundException(`${id}의 조상을 찾을 수 없습니다?`);
     }
     return found;
   }
@@ -44,6 +58,23 @@ export class CategoryService {
 
     return found
   }
+
+  getAllProducts(descendantsTree: Category): Product[] {
+    const descendantsProducts: Product[] = [];
+    function findProductsCategories(categories: Category[]) {
+      for (const category of categories) {
+        if (category.children.length > 0) {
+          findProductsCategories(category.children);
+        }
+        descendantsProducts.push(...category.products);
+      }
+    }
+  
+    findProductsCategories([descendantsTree]);
+  
+    return descendantsProducts;
+  }
+
 
   // async delete(id: number): Promise<void>{
   //   const result = await this.categoryRepository.delete(id);

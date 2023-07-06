@@ -22,10 +22,16 @@ export class CategoryController {
     return this.categoryService.getById(categoryId);
   }
 
-
+  //트리의 모든 자식을 가져와요!(평면 배열 반환)
   @Get('/descendants/:id')
   async getDescendantsTree(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number){
     return this.categoryService.getDescendantsTree(categoryId);
+  }
+
+  //트리의 모든 부모를 가져와요!(평면 배열 반환)
+  @Get('/ancestors/:id')
+  async getAncestorsTree(@Param('id', new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) categoryId: number) {
+    return this.categoryService.getAncestorsTree(categoryId);
   }
 
 

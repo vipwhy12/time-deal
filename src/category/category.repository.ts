@@ -15,15 +15,18 @@ export class CategoryRepository{
   async getAll() : Promise<Category[]>{
     return await this.categoryRepository.manager
     .getTreeRepository(Category)
-    .findTrees()
+    .findTrees({})
   }
 
   async getById(id : number) {
-    return await this.categoryRepository.findOneBy({id});
+    return await this.categoryRepository.findOneOrFail({
+      where: {id: id},
+      relations : { "products": true , "children": true}
+    });
   }
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category>{
-    const {name, depth, parentId} = createCategoryDto;
+    const {name, parentId} = createCategoryDto;
     let category : Category
 
     if(parentId){
@@ -50,7 +53,15 @@ export class CategoryRepository{
     if(!found)
     throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
 
-    return await this.categoryRepository.manager.getTreeRepository(Category).findDescendantsTree(found)
+    return await this.categoryRepository.manager.getTreeRepository(Category).findDescendantsTree(found, { relations: ["products"]})
+  }
+  
+  async getAncestorsTree(id : number): Promise<Category[]>{
+    const found = await this.getById(id)
+    if(!found)
+    throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
+
+    return await this.categoryRepository.manager.getTreeRepository(Category).findAncestors(found)
   }
 
   async getRoot(): Promise<Category[]>{
