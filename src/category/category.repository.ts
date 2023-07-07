@@ -9,7 +9,7 @@ export class CategoryRepository {
   constructor(
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
-  ) {}
+  ) { }
 
   getAll(): Promise<Category[]> {
     return this.categoryRepository.manager
@@ -47,8 +47,12 @@ export class CategoryRepository {
       category = this.categoryRepository.create({ name });
     }
 
-    await this.categoryRepository.save(category);
-    return category;
+    return this.categoryRepository.manager.transaction(
+      async (transactionalEntityManager) => {
+        const saveCategory = await transactionalEntityManager.save(category);
+        return saveCategory;
+      },
+    );
   }
 
   async getDescendantsTree(id: number): Promise<Category> {
