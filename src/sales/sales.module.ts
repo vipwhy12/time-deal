@@ -6,11 +6,9 @@ import { Sale } from './sale.entity';
 import { SaleRepository } from './sale.repository';
 
 @Module({
-  imports:[
-    TypeOrmModule.forFeature([Sale])
-  ],
+  imports: [TypeOrmModule.forFeature([Sale])],
   controllers: [SalesController],
   providers: [SalesService, SaleRepository],
-  exports : [SalesService, SaleRepository]
+  exports: [SalesService, SaleRepository],
 })
 export class SalesModule {}

@@ -1,23 +1,21 @@
-import { IsNotEmpty, IsString, IsOptional, IsNumber } from "class-validator";
-import { Sale } from "../../sales/sale.entity";
-import { Transform } from "class-transformer";
+import { IsNotEmpty, IsString, IsOptional, IsNumber } from 'class-validator';
+import { Sale } from '../../sales/sale.entity';
+import { Transform } from 'class-transformer';
 
-
-export class CreateProductDto{
+export class CreateProductDto {
   @IsNotEmpty()
   @IsString()
-  name : string
+  name: string;
 
   @IsNotEmpty()
   @IsNumber()
-  brandId : number
+  brandId: number;
 
   @IsNotEmpty()
   @IsNumber({}, { each: true })
   @Transform(({ value }) => value.map(Number))
-  categoryId: number[]
+  categoryId: number[];
 
   @IsOptional()
-  sale : Sale
-
+  sale: Sale;
 }

@@ -1,9 +1,9 @@
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-export class BaseEntity{
+export class BaseEntity {
   @PrimaryGeneratedColumn()
-  id : number
+  id: number;
 
   @CreateDateColumn({ type: 'timestamptz' })
-  createdAt :Date
+  createdAt: Date;
 }

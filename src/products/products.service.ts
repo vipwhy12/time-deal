@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Product } from './entities/product.entity';
 import { ProductRepository } from './product.repository';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -6,59 +6,67 @@ import { CategoryRepository } from 'src/category/category.repository';
 import { BrandRepository } from 'src/brands/brand.repository';
 import { Category } from 'src/category/category.entity';
 import { SaleRepository } from 'src/sales/sale.repository';
-
-
+import { EntityNotFoundError } from 'typeorm';
 
 @Injectable()
 export class ProductsService {
+  private logger = new Logger('ProductsService');
   constructor(
-    private productRepository : ProductRepository,
-    private categoryRepository : CategoryRepository,
-    private brandRepository : BrandRepository,
-    private saleRepository : SaleRepository
-    ){}
+    private productRepository: ProductRepository,
+    private categoryRepository: CategoryRepository,
+    private brandRepository: BrandRepository,
+    private saleRepository: SaleRepository,
+  ) { }
 
-  getAll(): Promise<Product[]> {
-    return this.productRepository.getAll();
+  async getAll(): Promise<Product[]> {
+    return await this.productRepository.getAll();
   }
 
-  getNewProducts(): Promise<Product[]> {
-    return this.productRepository.getNewProducts();
+  async getNewProducts(): Promise<Product[]> {
+    return await this.productRepository.getNewProducts();
   }
 
-  getById(id : number){
-    const found = this.productRepository.getById(id);
-
-    if(!found) {
-      throw new NotFoundException(`${id}를 찾을 수 없습니다.`);
+  async getById(id: number) {
+    try {
+      return await this.productRepository.getById(id);
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
+        this.logger.error(`💥id가 ${id}인 상품을 찾을 수 없습니다.`);
+        throw new NotFoundException(`🥲 id가 ${id}인 상품을 찾을 수 없습니다.`);
+      }
     }
+  }
 
-    return found;
-  } 
+  async create(createProductDto: CreateProductDto) {
+    const foundBrand = await this.brandRepository.getById(
+      createProductDto.brandId,
+    );
 
-  async create(createProductDto : CreateProductDto){
-    const foundBrand = await this.brandRepository.getById(createProductDto.brandId);
-    const foundCategory : Category[] = [];
-
+    const foundCategory: Category[] = [];
     for (const categoryId of createProductDto.categoryId) {
       const category = await this.categoryRepository.getById(categoryId);
 
       if (category) {
         foundCategory.push(category);
       } else {
-        console.log("foundcategory : " + foundBrand)
         throw new NotFoundException(`카테고리를 찾을 수 없습니다.`);
       }
     }
 
-    if(!foundBrand) {
-      throw new NotFoundException(`${createProductDto.brandId} : 브랜드를 찾을 수 없습니다.`);
-    }
+    const created = await this.productRepository.create(
+      createProductDto,
+      foundCategory,
+      foundBrand,
+    );
 
-    const created = await this.productRepository.create(createProductDto, foundCategory, foundBrand);
-    const createdCategory = await this.productRepository.getById(created.id)
-    const createSale = await this.saleRepository.create(createdCategory, foundBrand, foundCategory);
+    const createdCategory = await this.productRepository.getById(created.id);
 
-    return created
+    await this.saleRepository.create(
+      createdCategory,
+      foundBrand,
+      foundCategory,
+    );
+
+    return created;
   }
 }

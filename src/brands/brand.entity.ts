@@ -1,23 +1,22 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Product } from "../products/entities/product.entity";
-import { BaseEntity } from "src/core/base.entity";
-import { Sale } from "src/sales/sale.entity";
-import { type } from "os";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Product } from '../products/entities/product.entity';
+import { BaseEntity } from 'src/core/base.entity';
+import { Sale } from 'src/sales/sale.entity';
 
 @Entity()
-export class Brand extends BaseEntity{
+export class Brand extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id : number
+  id: number;
 
   @Column()
-  name : string
+  name: string;
 
   @Column()
-  description: string
+  description: string;
 
-  @OneToMany(type => Product, product => product.brand)
-  products : Product[]
+  @OneToMany(() => Product, (product) => product.brand)
+  products: Product[];
 
-  @OneToMany(type=> Sale, sale=> sale.brand)
-  sales : Sale[]
+  @OneToMany(() => Sale, (sale) => sale.brand)
+  sales: Sale[];
 }
