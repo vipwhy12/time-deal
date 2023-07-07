@@ -1,30 +1,43 @@
-import { DataSource, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { Brand } from "./brand.entity";
 import { CreateBrandDto } from "./dto/create-brand.dto";
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 
 @Injectable()
-export class BrandRepository extends Repository<Brand>{
+export class BrandRepository{
 
-  
+  constructor(
+    @InjectRepository(Brand)
+    private brandRepository: Repository<Brand>
+  ) {}
 
-  async findAll(){
-    return await this.find({
-      relations : ["products"]
-    })
+  getAll(): Promise <Brand[]>{
+    return this.brandRepository.find({});
   }
 
-  async createBrand(createBrandDto: CreateBrandDto): Promise<Brand>{
-    const { name, description, products } = createBrandDto = createBrandDto;
-    const brand = this.create({
+  getById(id: number): Promise <Brand>{
+    return this.brandRepository.findOneOrFail({
+      relations : { products : true },
+      where : { id : id }
+    });
+  }
+  
+  getNewBrands(): Promise <Brand[]>{
+    return this.brandRepository.find({
+      order : { createdAt : 'DESC' },
+      take : 5
+    });
+  } 
+
+  create(createBrandDto: CreateBrandDto): Promise<Brand>{
+    const { name, description, products } = createBrandDto;
+    const brand = this.brandRepository.create({
       name,
       description,
       products
-    })
+    });
 
-    await this.save(brand);
-    return brand;
+    return this.brandRepository.save(brand);
   }
-
 }
