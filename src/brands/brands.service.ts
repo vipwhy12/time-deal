@@ -7,7 +7,11 @@ import { EntityNotFoundError } from 'typeorm';
 @Injectable()
 export class BrandsService {
   private logger = new Logger('BrandsService');
-  constructor(private brandRepository: BrandRepository) {}
+  private static staticLogger = new Logger();
+  private static cachedNewBrands: Brand[] = [];
+  private static cacheExpiration: number = 120000; //2분
+
+  constructor(private brandRepository: BrandRepository) { }
 
   async getAll(): Promise<Brand[]> {
     return await this.brandRepository.getAll();
@@ -27,7 +31,24 @@ export class BrandsService {
   }
 
   async getNewBrands(): Promise<Brand[]> {
-    return await this.brandRepository.getNewBrands();
+    if (BrandsService.cachedNewBrands.length > 0) {
+      return BrandsService.cachedNewBrands;
+    }
+
+    const newBrands = await this.brandRepository.getNewBrands();
+
+    BrandsService.cachedNewBrands = newBrands;
+
+    setTimeout(() => {
+      BrandsService.clearCache();
+    }, BrandsService.cacheExpiration);
+
+    return newBrands;
+  }
+
+  static clearCache(): void {
+    BrandsService.cachedNewBrands = [];
+    BrandsService.staticLogger.debug('✨캐시가 지워졌습니다!');
   }
 
   async create(createBrandDto: CreateBrandDto): Promise<Brand> {
