@@ -13,9 +13,14 @@ export class SalesController {
     return this.saleService.getAll();
   }
 
-  @Get("/rank")
-  getTopBrand(): Promise<Sale[]>{
-    return this.saleService.getTopBrand();
+  @Get("rank/:limit")
+  getTopBrand(@Param('limit') limit: number): Promise<Sale[]>{
+    return this.saleService.getTopBrand(limit);
+  }
+
+  @Get("brands")
+  getBrandSalesList(): Promise<Sale[]>{
+    return this.saleService.getBrandSalesList();
   }
 
   @Get("brands/:id")

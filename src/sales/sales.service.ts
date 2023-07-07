@@ -12,9 +12,14 @@ export class SalesService {
     return this.saleRepository.getAll();
   }
 
-  getTopBrand():Promise<Sale[]>{
-    return this.saleRepository.getTopBrand();
+  getTopBrand(limit : number):Promise<Sale[]>{
+    return this.saleRepository.getTopBrand(limit);
   }
+
+  getBrandSalesList():Promise<Sale[]>{
+    return this.saleRepository.getBrandSalesList();
+  }
+
 
   getBrandSales(brandId : number):Promise<Sale[]>{
     const foundBrand = this.saleRepository.getBrandSales(brandId);
