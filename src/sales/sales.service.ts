@@ -12,6 +12,14 @@ export class SalesService {
     return this.saleRepository.getAll();
   }
 
+  getById(id: number): Promise<Sale>{
+    const foundSale = this.saleRepository.getById(id);
+    if(!foundSale){
+      throw new Error('🥲판매 데이터를 찾을 수 없습니다.')
+    }
+    return foundSale;
+  }
+
   getTopBrand(limit : number):Promise<Sale[]>{
     return this.saleRepository.getTopBrand(limit);
   }
@@ -24,5 +32,16 @@ export class SalesService {
   getBrandSales(brandId : number):Promise<Sale[]>{
     const foundBrand = this.saleRepository.getBrandSales(brandId);
     return foundBrand;
+  }
+
+  async updateSalesCount(id: number, salesCount: number): Promise<Sale> {
+    const foundSale = await this.saleRepository.getById(id);
+
+    if(!foundSale){
+      throw new Error('🥲판매 데이터를 찾을 수 없습니다.')
+    }
+    
+    const updateSale = this.saleRepository.updateSalesCount(foundSale, salesCount)
+    return updateSale
   }
 }

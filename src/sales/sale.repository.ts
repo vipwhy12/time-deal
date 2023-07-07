@@ -12,7 +12,6 @@ import { Category } from "src/category/category.entity";
 export class SaleRepository{
   constructor(@InjectRepository(Sale) private saleRepository : Repository<Sale>){}
 
-
   async getAll(): Promise<Sale[]>{
     return await this.saleRepository.find({
       relations : { 
@@ -46,10 +45,10 @@ export class SaleRepository{
       .createQueryBuilder('sale')
       .select('sale.brandId', 'brandId')
       .addSelect('Max(brand.name)', 'brandName')
-      .addSelect('SUM(sale.salesCount)', 'sum')
+      .addSelect('SUM(sale.salesCount)', 'total')
       .innerJoin('sale.brand', 'brand')
       .groupBy('sale.brandId')
-      .orderBy('sum', 'DESC')
+      .orderBy('total', 'DESC')
       .limit(limit)
       .getRawMany();
 
@@ -61,10 +60,10 @@ export class SaleRepository{
     .createQueryBuilder('sale')
     .select('sale.brandId', 'brandId')
     .addSelect('Max(brand.name)', 'brandName')
-    .addSelect('SUM(sale.salesCount)', 'sum')
+    .addSelect('SUM(sale.salesCount)', 'total')
     .innerJoin('sale.brand', 'brand')
     .groupBy('sale.brandId')
-    .orderBy('sum', 'DESC')
+    .orderBy('total', 'DESC')
     .getRawMany();
 
   return Brands
@@ -72,6 +71,7 @@ export class SaleRepository{
 
 
   async getBrandSales(brandId : number) : Promise<Sale[]>{
+
     return await this.saleRepository.find({ 
       where : {brandId : brandId},
       relations : { 
@@ -81,4 +81,15 @@ export class SaleRepository{
       }
     })
   }
+
+  async getById(id: number): Promise<Sale> {
+    return await this.saleRepository.findOneByOrFail({id})
+  }
+
+  async updateSalesCount(updateSale: Sale, salesCount: number ) : Promise<Sale>{
+    updateSale.salesCount = salesCount 
+    return await this.saleRepository.save(updateSale);
+  }
+
+
 }
