@@ -89,10 +89,9 @@ function CategorySelect({ rootCategory }) {
   };
 
   return (
-    <>
-      <h1>카테고리</h1>
+    <header>
       <div className="d-flex">{selectList(categories, categoryList)}</div>
-    </>
+    </header>
   );
 }
 
