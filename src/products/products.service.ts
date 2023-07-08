@@ -11,6 +11,7 @@ import { EntityNotFoundError } from 'typeorm';
 @Injectable()
 export class ProductsService {
   private logger = new Logger('ProductsService');
+
   constructor(
     private productRepository: ProductRepository,
     private categoryRepository: CategoryRepository,
