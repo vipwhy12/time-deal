@@ -18,7 +18,7 @@ export default function Pagination({ total, limit, page, setPage }) {
 
   return (
     <>
-      <div className={isExistPage ? "" : "disabled-pagination"}>
+      <div>
         <button onClick={previousPage} disabled={isFirstPage}>
           &lt;
         </button>

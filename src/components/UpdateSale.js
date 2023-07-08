@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 
 export default function UpdateSale({ salesQuantity, salesId }) {
   const [count, setCount] = useState(salesQuantity);
@@ -35,7 +37,7 @@ export default function UpdateSale({ salesQuantity, salesId }) {
       const response = await axios.patch(
         url + "sales/" + salesId + "/salesCount",
         { salesCount: count - 1 }
-      ); // API 엔드포인트에 맞게 URL을 변경하세요
+      );
       setCount(response.data.salesCount);
     } catch (error) {
       console.error("Error updating sales count:", error);
@@ -45,7 +47,7 @@ export default function UpdateSale({ salesQuantity, salesId }) {
   return (
     <>
       <button onClick={handleIncrease}> + </button>
-      Clicked {count}
+      ❗️판매 수량 : {count}❗️
       <button onClick={handleDecrease}> - </button>
     </>
   );

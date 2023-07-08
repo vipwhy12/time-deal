@@ -1,15 +1,14 @@
-import Pagination from '../pagination/Pagination';
-import Table from 'react-bootstrap/Table';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import Pagination from "../pagination/Pagination";
+import Table from "react-bootstrap/Table";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import styled from "styled-components";
 
-
-export default function ProductList({products}){
+export default function ProductList({ products, userSelect, setUserSelect }) {
   const [limit] = useState(10);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const offset = (page - 1) * limit;
-
 
   return (
     <>
@@ -41,14 +40,21 @@ export default function ProductList({products}){
         </tbody>
       </Table>
 
-      <footer>
+      <PaginationContainer>
         <Pagination
           total={products.length}
           limit={limit}
           page={page}
           setPage={setPage}
         />
-      </footer>
+      </PaginationContainer>
     </>
   );
 }
+
+const PaginationContainer = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10%;
+`;

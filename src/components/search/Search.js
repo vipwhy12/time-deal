@@ -13,7 +13,7 @@ function Search({ brands }) {
   }, [brands]);
 
   return (
-    <article className="search">
+    <article>
       <Filters setUserInput={setUserInput} />
       <SearchDisplay
         brands={brands}
