@@ -31,7 +31,6 @@ export default function Category() {
     <>
       <h1>{category.name}</h1>
       <h2>{products.length}</h2>
-
       <ProductList products={products} />
     </>
   );
