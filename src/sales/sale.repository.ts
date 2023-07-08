@@ -29,17 +29,21 @@ export class SaleRepository {
   async create(product: Product, brand: Brand, categories: Category[]) {
     const SALES_DEFAULT_VALUE = 0;
 
-    for (const category of categories) {
-      const sale: CreateSaleDto = this.saleRepository.create({
-        salesCount: SALES_DEFAULT_VALUE,
-        product: product,
-        category: category,
-        brand: brand,
-      });
-
-      const createSale = await this.saleRepository.save(sale);
-    }
+    await this.saleRepository.manager.transaction(
+      async (transactionalEntityManager) => {
+        for (const category of categories) {
+          const sale: CreateSaleDto = this.saleRepository.create({
+            salesCount: SALES_DEFAULT_VALUE,
+            product: product,
+            category: category,
+            brand: brand,
+          });
+          await transactionalEntityManager.save(sale);
+        }
+      }
+    )
   }
+
 
   async getTopBrand(limit: number) {
     const topBrand = await this.saleRepository
@@ -82,15 +86,14 @@ export class SaleRepository {
   }
 
   async getById(id: number): Promise<Sale> {
-    try {
-      return await this.saleRepository.findOneByOrFail({ id });
-    } catch (error) {
-      throw error;
-    }
+    return await this.saleRepository.findOneByOrFail({ id });
   }
 
   async updateSalesCount(updateSale: Sale, salesCount: number): Promise<Sale> {
-    updateSale.salesCount = salesCount;
-    return await this.saleRepository.save(updateSale);
+    return this.saleRepository.manager.transaction(async (transactionalEntityManager) => {
+      updateSale.salesCount = salesCount;
+      return await transactionalEntityManager.save(updateSale);
+    },
+    );
   }
 }
