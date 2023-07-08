@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
 
-export default function SearchDisplay({brands, userInput}){
-  const navigate = useNavigate()
-  const searched = brands.filter(({id, name}) => {
+export default function SearchDisplay({ brands, userInput }) {
+  const navigate = useNavigate();
+  const searched = brands.filter(({ id, name }) => {
     return name.toLowerCase().includes(userInput);
   });
+
+  const move = (id) => {
+    navigate("brands/" + id);
+  };
 
   return (
     <>
@@ -13,7 +17,7 @@ export default function SearchDisplay({brands, userInput}){
           <div
             key={id}
             onClick={() => {
-              navigate("brands/" + id);
+              move({ id });
             }}
           >
             {name}
