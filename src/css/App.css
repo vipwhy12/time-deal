@@ -1,53 +1,9 @@
-
-.App{
-  font-family : 'gulim', 'gothic'
+.App {
+  font-family: "gulim", "gothic";
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-.main-screen{
+.main-screen {
   padding: 0px var(--horiziontal-space);
-}
-
-/* Home Brand Search */
-
-.brand-search{
-  margin: 30px;
-  text-align: center;
-}
-
-.brand-search__title{
-  font-size: 1.5rem;
-  font-weight: 700;
-}
-
-.brand-search-bar__border{
-  margin: 0 auto;
-  position:relative;
-  width:35.7rem;
-  height:4.5rem;
-  border:0.4rem solid #c4c4c4;
-  border-radius:3.4rem;
-}
-
-.brand-search-bar{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 1.7rem 3rem 1.7rem 2rem;
-  gap: 1.5rem;
-  width: 35rem;
-  height: 2.4rem;
-  border-radius: 7.5rem;
-  background: white;
-  border: 0.2rem solid black
-}
-
-/* Brand 페이지 */
-.brand{
-  margin: 30px auto;
-}
-
-.brand-title{
-  font-size: 1.5rem;
-  font-weight: 700;
 }

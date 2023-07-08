@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
-import Table from "react-bootstrap/Table";
-import { useState } from 'react';
-import Pagination from '../pagination/Pagination';
-
+import { useState } from "react";
+import Pagination from "../pagination/Pagination";
+import ListGroup from "react-bootstrap/ListGroup";
+import styled from "styled-components";
 
 export default function BrandsList({ brands }) {
   const [limit] = useState(10);
@@ -10,42 +10,54 @@ export default function BrandsList({ brands }) {
   const navigate = useNavigate();
   const offset = (page - 1) * limit;
 
+  const move = (brand) => {
+    navigate("" + brand.id);
+  };
+
   return (
     <>
-      <Table striped bordered hover size="sm" variant="dark">
-        <thead>
-          <tr>
-            <th></th>
-            <th>이름</th>
-            <th>설명</th>
-          </tr>
-        </thead>
-        <tbody>
+      <ListGroupContainer>
+        <ListGroup as="ol">
           {brands
             .slice(offset, offset + limit)
             .map(({ id, name, description }, index) => (
-            <tr
-              key={id}
-              onClick={() => {
-                navigate("" + id);
-              }}
-            >
-              <td>{index + offset + 1}</td>
-              <td>{name}</td>
-              <td>{description}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start"
+                onClick={() => {
+                  move({ id });
+                }}
+              >
+                <div className="ms-2 me-auto">
+                  <div className="fw-bold">
+                    {index + offset + 1}. {name}
+                  </div>
+                  {description}
+                </div>
+              </ListGroup.Item>
+            ))}
+        </ListGroup>
+      </ListGroupContainer>
 
-      <footer>
+      <PaginationContainer>
         <Pagination
           total={brands.length}
           limit={limit}
           page={page}
           setPage={setPage}
         />
-      </footer>
+      </PaginationContainer>
     </>
   );
 }
+
+const ListGroupContainer = styled.div`
+  cursor: pointer;
+`;
+
+const PaginationContainer = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10%;
+`;
