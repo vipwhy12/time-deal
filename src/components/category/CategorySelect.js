@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-function CategorySelect({ rootCategory }) {
+function CategorySelect({ rootCategory, setUserSelect }) {
   const [categories, setCategories] = useState(rootCategory); // 선택할수 있는 리스트
-  const [categoryList, setCategoryList] = useState([]); // 선택된 리스트 [parentList-self]
+  const [categoryList, setCategoryList] = useState([]); // 선택된 리스트
 
   useEffect(() => {
-    console.log(categoryList);
+    console.log("✨ categoryList :" + categoryList);
   }, [categoryList]);
 
   useEffect(() => {
-    console.log(categories);
+    console.log("💥 categories :" + categories);
   }, [categories]);
 
   const getValue = async (e) => {
+    setUserSelect(parseInt(e.target.value));
     for (let i = 0; i < categoryList.length; i++) {
       for (let j = 0; j < categoryList[i][0].length; j++) {
         if (categoryList[i][0][j].id === parseInt(e.target.value)) {

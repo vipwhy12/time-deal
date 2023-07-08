@@ -1,35 +1,33 @@
-import BrandsHeader from '../../components/brand/BrandsHeader';
-import BrandsList from '../../components/brand/BrandsList';
-import Loading from '../../components/Loading'
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import BrandsHeader from "../../components/brand/BrandsHeader";
+import BrandsList from "../../components/brand/BrandsList";
+import Loading from "../../components/Loading";
+import React, { useEffect, useState } from "react";
 
+import { useLocation } from "react-router-dom";
 
-export default function Brands(){
-  const [brands, setBrand] = useState(null)
+export default function Brands() {
+  const { state } = useLocation();
+  const [brands, setBrands] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/brands").then((response) => {
-      setBrand(response.data);
-      console.log("🚀🚀SET Brand")
-      console.log(response.data)
-    });
-  }, []);
+    setBrands(state.brands);
+    setLoading(false);
+  }, [state]);
 
-  if (!brands){
-    return (<Loading />)
+  if (loading) {
+    return <Loading />;
   }
 
-
-  return(
+  return (
     <>
       <header>
         <BrandsHeader />
-      </header>  
-      
+      </header>
+
       <main>
-        <BrandsList brands={ brands } />
+        <BrandsList brands={brands} />
       </main>
     </>
-  )
+  );
 }
