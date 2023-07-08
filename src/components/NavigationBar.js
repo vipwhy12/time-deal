@@ -14,13 +14,10 @@ export default function NavigationBar() {
   useEffect(() => {
     const loadBrand = async () => {
       try {
-        await axios.get(URL + "brands").then(({ data }) => {
-          setBrand(data);
-          setLoading(false);
-          console.log("🚀🚀SET navBar 세팅완료");
-        });
+        const brandResponse = await axios.get(URL + "brands");
+        setBrand(brandResponse.data);
+        setLoading(false);
       } catch (error) {
-        console.log("🥲NAV BAR의 데이터를 불러오는 데 실패했습니다.");
         console.error("err : ", error.message);
       }
     };
@@ -66,9 +63,8 @@ export default function NavigationBar() {
             >
               Sales
             </Nav.Link>
-
-            <Search brands={brands} />
           </Nav>
+          <Search brands={brands} />
         </Container>
       </Navbar>
     </>
