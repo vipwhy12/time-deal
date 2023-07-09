@@ -16,16 +16,10 @@ export class BrandRepository {
   }
 
   async getById(id: number): Promise<Brand> {
-    try {
-      const foundBrand = await this.brandRepository.findOneOrFail({
-        relations: { products: true },
-        where: { id: id },
-      });
-
-      return foundBrand;
-    } catch (error) {
-      throw error;
-    }
+    return await this.brandRepository.findOneOrFail({
+      relations: { products: true },
+      where: { id: id },
+    });
   }
 
   getNewBrands(): Promise<Brand[]> {

@@ -24,15 +24,10 @@ export class ProductRepository {
   }
 
   async getById(id: number): Promise<Product> {
-    try {
-      const foundProduct = await this.productRepository.findOneOrFail({
-        relations: { brand: true, category: true },
-        where: { id: id },
-      });
-      return foundProduct;
-    } catch (error) {
-      throw error;
-    }
+    return await this.productRepository.findOneOrFail({
+      relations: { brand: true, category: true },
+      where: { id: id },
+    });
   }
 
   async create(
@@ -47,7 +42,11 @@ export class ProductRepository {
       brand: brand,
     });
 
-    const created = await this.productRepository.save(product);
-    return created;
+    return this.productRepository.manager.transaction(
+      async (transactionalEntityManager) => {
+        const saveProduct = await transactionalEntityManager.save(product);
+        return saveProduct;
+      },
+    );
   }
 }

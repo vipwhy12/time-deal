@@ -18,16 +18,10 @@ export class CategoryRepository {
   }
 
   getById(id: number) {
-    try {
-      const foundCategory = this.categoryRepository.findOneOrFail({
-        where: { id: id },
-        relations: { products: true, children: true },
-      });
-
-      return foundCategory;
-    } catch (error) {
-      throw error;
-    }
+    return this.categoryRepository.findOneOrFail({
+      where: { id: id },
+      relations: { products: true, children: true },
+    });
   }
 
   async create(createCategoryDto: CreateCategoryDto): Promise<Category> {
