@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Spinner from "react-bootstrap/Spinner";
+import Loading from "../../components/Loading";
 import axios from "axios";
 import React from "react";
 import styled from "styled-components";
@@ -10,22 +10,32 @@ export default function Product() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [category, setCategory] = useState(null);
+  const [loading, setLoading] = useState(true);
   const img =
     "https://static.wixstatic.com/media/a442d9_1a2ce063dbe94e7e91cd43e4dd22088d~mv2.jpg/v1/fit/w_2500,h_1330,al_c/a442d9_1a2ce063dbe94e7e91cd43e4dd22088d~mv2.jpg";
 
   useEffect(() => {
-    axios.get("http://localhost:8080/products/" + id).then(({ data }) => {
-      setProduct(data);
-      axios
-        .get("http://localhost:8080/category/ancestors/" + data.category[0].id)
+    const loadData = async () => {
+      await axios
+        .get("http://localhost:8080/products/" + id)
         .then(({ data }) => {
-          setCategory(data);
+          setProduct(data);
+          axios
+            .get(
+              "http://localhost:8080/category/ancestors/" + data.category[0].id
+            )
+            .then(({ data }) => {
+              setCategory(data);
+              setLoading(false);
+            });
         });
-    });
+    };
+    loadData();
   }, [id]);
 
-  if (!product || !category)
-    return <Spinner animation="border" variant="dark" />;
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Container>

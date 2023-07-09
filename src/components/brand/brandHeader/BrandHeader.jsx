@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import styled from "styled-components";
+import { Header, ImageContainer, BrandContainer } from "./style";
 
 const BrandHeader = ({ brand }) => {
   const img =
@@ -23,21 +23,5 @@ const BrandHeader = ({ brand }) => {
     </Header>
   );
 };
-
-const Header = styled.header`
-  padding: 20px;
-`;
-
-const ImageContainer = styled.img`
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  object-fit: cover;
-  zindex: 3;
-`;
-
-const BrandContainer = styled.div`
-  margin-top: 30px;
-`;
 
 export default BrandHeader;

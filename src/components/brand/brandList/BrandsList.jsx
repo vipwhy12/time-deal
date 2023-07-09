@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Pagination from "../pagination/Pagination";
+import Pagination from "../../pagination/Pagination";
 import ListGroup from "react-bootstrap/ListGroup";
-import styled from "styled-components";
+import { ListGroupContainer, PaginationContainer } from "./style";
 
 export default function BrandsList({ brands }) {
-  const [limit] = useState(10);
-  const [page, setPage] = useState(1);
+  const SHOW_PAGE_NUM = 10;
+  const SHOW_PAGE_START = 1;
+
+  const [limit] = useState(SHOW_PAGE_NUM);
+  const [page, setPage] = useState(SHOW_PAGE_START);
   const navigate = useNavigate();
   const offset = (page - 1) * limit;
 
@@ -50,14 +53,3 @@ export default function BrandsList({ brands }) {
     </>
   );
 }
-
-const ListGroupContainer = styled.div`
-  cursor: pointer;
-`;
-
-const PaginationContainer = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10%;
-`;

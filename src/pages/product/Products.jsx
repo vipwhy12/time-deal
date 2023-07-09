@@ -1,16 +1,14 @@
 import ProductList from "../../components/product/ProductList";
-import CategorySelect from "../../components/category/CategorySelect";
+import CategorySelect from "../../components/category/categorySelect/CategorySelect";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loading from "../../components/Loading";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Products() {
   const [products, setProduct] = useState(null);
   const [rootCategory, setRootCategory] = useState(null);
   const [userSelect, setUserSelect] = useState(null);
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

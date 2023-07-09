@@ -1,45 +1,49 @@
-import './css/App.css'
-import Home from './pages/Home';
-import Brand from './pages/Brand'
-import Product from './pages/Product'
-import Rank  from './pages/Rank';
-import Category from './pages/Category';
-import BrandDetail from './pages/BrandDetail'
-import ProductDetail from './pages/ProductDetail'
-import BrandCreate from './pages/BrandCreate'
+import "./css/App.css";
+import Home from "./pages/Home";
+import Brands from "./pages/brand/Brands";
+import Products from "./pages/product/Products";
+import Category from "./pages/category/Category";
+import Brand from "./pages/brand/Brand";
+import Product from "./pages/product/Product";
+import NotFound from "./pages/NotFound";
+import Sales from "./pages/Sale/Sales";
+import Sale from "./pages/Sale/Sale";
 
-import { Routes, Route } from 'react-router-dom'
-import NavigationBar from './components/NavigationBar';
-import NotFound from './pages/NotFound';
-
+import styled from "styled-components";
+import { Routes, Route } from "react-router-dom";
+import NavigationBar from "./components/NavigationBar";
+import Categories from "./pages/category/Categories";
 
 export default function App() {
   return (
-    <div className='App'>
+    <div className="App">
       <nav>
-        <NavigationBar/>
+        <NavigationBar />
       </nav>
 
-        <div className='main-screen'>
+      <MainContainer className="main-screen">
         <Routes>
-          <Route path='/' element={<Home/>}/>
+          <Route path="/" element={<Home />} />
 
-          <Route path='/brands' element={<Brand/>}/>
-          <Route path='/brands/:id' element= {<BrandDetail/>}/>
-          <Route path='/brands/create' element={<BrandCreate/>}/>
+          <Route path="/brands" element={<Brands />} />
+          <Route path="/brands/:id" element={<Brand />} />
 
-          <Route path='/category' element={<></>}/>
-          <Route path='/category/:id' element={<Category/>}/>
+          <Route path="/category" element={<Categories />} />
+          <Route path="/category/:id" element={<Category />} />
 
-          <Route path='/products' element={<Product/>}/>     
-          <Route path='/products/:id' element={<ProductDetail/>}/>
-          
-          <Route path='/rank' element={<Rank/>}/>
-          <Route path='*' element= {<NotFound/>}></Route>
+          <Route path="/products" element={<Products />} />
+          <Route path="/products/:id" element={<Product />} />
+
+          <Route path="/sales" element={<Sales />} />
+          <Route path="/sales/:id" element={<Sale />} />
+
+          <Route path="*" element={<NotFound />} />
         </Routes>
-        </div>
+      </MainContainer>
     </div>
   );
 }
 
-
+const MainContainer = styled.main`
+  padding: 35px 180px;
+`;

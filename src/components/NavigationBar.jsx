@@ -6,7 +6,6 @@ import axios from "axios";
 import Loading from "./Loading";
 
 export default function NavigationBar() {
-  const URL = "http://localhost:8080/";
   const navigate = useNavigate();
   const [brands, setBrand] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,7 +13,7 @@ export default function NavigationBar() {
   useEffect(() => {
     const loadBrand = async () => {
       try {
-        const brandResponse = await axios.get(URL + "brands");
+        const brandResponse = await axios.get("http://localhost:8080/brands");
         setBrand(brandResponse.data);
         setLoading(false);
       } catch (error) {
@@ -28,6 +27,14 @@ export default function NavigationBar() {
   if (loading) {
     return <Loading></Loading>;
   }
+
+  const move = (l) => {
+    navigate("/brands", {
+      state: {
+        brands: brands,
+      },
+    });
+  };
 
   return (
     <>
@@ -44,7 +51,7 @@ export default function NavigationBar() {
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
-                navigate("/brands");
+                move();
               }}
             >
               Brand

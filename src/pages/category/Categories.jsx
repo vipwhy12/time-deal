@@ -1,5 +1,4 @@
-import CategoryTest from "../../components/category/CategoryTest";
-
+import CategoryComponent from "../../components/category/categoryComponent/CategoryComponent";
 import styled from "styled-components";
 
 export default function Categories({ rootCategory }) {
@@ -7,7 +6,7 @@ export default function Categories({ rootCategory }) {
     <section>
       <Title>Category</Title>
       <CategoryContainer>
-        <CategoryTest rootCategory={rootCategory} />
+        <CategoryComponent rootCategory={rootCategory} />
       </CategoryContainer>
     </section>
   );

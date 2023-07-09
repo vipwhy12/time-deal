@@ -1,8 +1,8 @@
 import Pagination from "../pagination/Pagination";
 import Table from "react-bootstrap/Table";
+import { PaginationContainer } from "./style";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import styled from "styled-components";
 
 export default function ProductList({ products, userSelect, setUserSelect }) {
   const [limit] = useState(10);
@@ -51,10 +51,3 @@ export default function ProductList({ products, userSelect, setUserSelect }) {
     </>
   );
 }
-
-const PaginationContainer = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10%;
-`;
