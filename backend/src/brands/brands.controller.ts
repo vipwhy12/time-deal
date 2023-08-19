@@ -1,4 +1,14 @@
-import { Controller, Body, Get, Param, Post, Logger, ParseIntPipe, ValidationPipe, UsePipes } from '@nestjs/common';
+import {
+  Controller,
+  Body,
+  Get,
+  Param,
+  Post,
+  Logger,
+  ParseIntPipe,
+  ValidationPipe,
+  UsePipes,
+} from '@nestjs/common';
 import { BrandsService } from './brands.service';
 import { Brand } from './brand.entity';
 import { CreateBrandDto } from './dto/create-brand.dto';

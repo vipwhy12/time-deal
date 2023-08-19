@@ -11,4 +11,4 @@ import { Brand } from './brand.entity';
   providers: [BrandsService, BrandRepository],
   exports: [BrandsService, BrandRepository],
 })
-export class BrandsModule {}
+export class BrandsModule { }

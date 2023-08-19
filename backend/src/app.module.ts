@@ -5,6 +5,7 @@ import { typeORMConfig } from './configs/typeorm.config';
 import { BrandsModule } from './brands/brands.module';
 import { CategoryModule } from './category/category.module';
 import { SalesModule } from './sales/sales.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,8 +14,9 @@ import { SalesModule } from './sales/sales.module';
     BrandsModule,
     CategoryModule,
     SalesModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

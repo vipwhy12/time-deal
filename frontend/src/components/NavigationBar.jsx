@@ -1,9 +1,9 @@
-import { Container, Nav, Navbar } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
-import Search from "./search/Search";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import Loading from "./Loading";
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Search from './search/Search';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Loading from './Loading';
 
 export default function NavigationBar() {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ export default function NavigationBar() {
   useEffect(() => {
     const loadBrand = async () => {
       try {
-        const brandResponse = await axios.get("http://localhost:8080/brands");
+        const brandResponse = await axios.get('http://localhost:8080/brands');
         setBrand(brandResponse.data);
         setLoading(false);
       } catch (error) {
-        console.error("err : ", error.message);
+        console.error('err : ', error.message);
       }
     };
 
@@ -29,7 +29,7 @@ export default function NavigationBar() {
   }
 
   const move = (l) => {
-    navigate("/brands", {
+    navigate('/brands', {
       state: {
         brands: brands,
       },
@@ -42,10 +42,10 @@ export default function NavigationBar() {
         <Container>
           <Navbar.Brand
             onClick={() => {
-              navigate("");
+              navigate('');
             }}
           >
-            NoTag
+            ⌚️TimeDeal
           </Navbar.Brand>
 
           <Nav className="me-auto">
@@ -58,14 +58,14 @@ export default function NavigationBar() {
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/products");
+                navigate('/products');
               }}
             >
               Product
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate("/sales");
+                navigate('/sales');
               }}
             >
               Sales
