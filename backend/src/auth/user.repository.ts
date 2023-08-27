@@ -1,4 +1,8 @@
-import { ConflictException, Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
@@ -18,7 +22,7 @@ export class UserRepository {
       await this.userRepository.save(user);
     } catch (error) {
       if (error.code === '23505') {
-        throw new ConflictException('💥유저의 이름이 이미 존재합니다!')
+        throw new ConflictException('💥유저의 이름이 이미 존재합니다!');
       } else {
         throw new InternalServerErrorException();
       }

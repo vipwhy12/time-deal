@@ -1,4 +1,4 @@
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import Search from './search/Search';
 import { useState, useEffect } from 'react';
@@ -47,7 +47,6 @@ export default function NavigationBar() {
           >
             ⌚️TimeDeal
           </Navbar.Brand>
-
           <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
@@ -72,6 +71,14 @@ export default function NavigationBar() {
             </Nav.Link>
           </Nav>
           <Search brands={brands} />
+          <Button
+            variant="outline-light"
+            onClick={() => {
+              navigate('/signup');
+            }}
+          >
+            ✨회원가입✨
+          </Button>
         </Container>
       </Navbar>
     </>
