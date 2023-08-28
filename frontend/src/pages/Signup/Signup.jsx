@@ -2,12 +2,14 @@ import axios from 'axios';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import CryptoJS from 'crypto-js';
 
 export default function Signup() {
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
+  const secretKey = process.env.REACT_APP_CRYPTOJS_KEY;
 
-  const handleSignupSubmit = () => {
+  const handleSignupSubmit = async () => {
     if (userName.length < 2 || userName.length > 20) {
       alert('😢 유저명은 2자리수 이상 20자리 수 이하여야 합니다.');
       return;
@@ -18,16 +20,15 @@ export default function Signup() {
       return;
     }
 
-    axios
+    await axios
       .post('http://localhost:8080/auth/signUp', {
         username: userName,
-        password: password,
+        password: CryptoJS.AES.encrypt(password, secretKey).toString(),
       })
       .then((response) => {
         setUserName('');
         setPassword('');
         alert('👀회원가입이 완료되었습니다!');
-
         console.log(response.status);
       })
       .catch((error) => {
@@ -38,12 +39,12 @@ export default function Signup() {
 
   const handleUserName = (event) => {
     setUserName(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   const handlePassword = (event) => {
     setPassword(event.target.value);
-    console.log(event.target.value);
+    // console.log(event.target.value);
   };
 
   return (
