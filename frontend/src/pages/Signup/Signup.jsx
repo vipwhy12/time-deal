@@ -50,11 +50,14 @@ export default function Signup() {
   return (
     <>
       <header>
-        <h5>💁🏻‍♀️ Join to TimeDeal!</h5>
+        <h1>Welcome Time Deal</h1>
+        이미 회원이신가요?
+        {/* <Link to="/login" /> */}
+        로그인하러가기
       </header>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>User name</Form.Label>
+          <Form.Label>💁🏻‍♀️ 닉네임</Form.Label>
           <Form.Control
             type="text"
             placeholder="닉네임을 입력해주세요"
@@ -63,16 +66,19 @@ export default function Signup() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>💁🏻‍♀️ 비밀번호</Form.Label>
           <Form.Control
             type="password"
             placeholder="비밀번호를 입력해주세요"
             onChange={handlePassword}
             value={password}
           />
+          <Form.Text id="passwordHelpBlock" muted>
+            비밀번호는 4자리 이상 20자리 이하여야합니다.
+          </Form.Text>
         </Form.Group>
-        <Button variant="primary" onClick={() => handleSignupSubmit()}>
-          가입
+        <Button variant="secondary" onClick={() => handleSignupSubmit()}>
+          가입하기
         </Button>
       </Form>
     </>
