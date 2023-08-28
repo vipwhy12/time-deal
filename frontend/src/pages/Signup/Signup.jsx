@@ -6,12 +6,12 @@ import CryptoJS from 'crypto-js';
 import { Link } from 'react-router-dom';
 
 export default function Signup() {
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const secretKey = process.env.REACT_APP_CRYPTOJS_KEY;
 
   const handleSignupSubmit = async () => {
-    if (userName.length < 2 || userName.length > 20) {
+    if (email.length < 2 || email.length > 20) {
       alert('😢 유저명은 2자리수 이상 20자리 수 이하여야 합니다.');
       return;
     }
@@ -23,11 +23,11 @@ export default function Signup() {
 
     await axios
       .post('http://localhost:8080/auth/signUp', {
-        username: userName,
+        email: email,
         password: CryptoJS.AES.encrypt(password, secretKey).toString(),
       })
       .then((response) => {
-        setUserName('');
+        setEmail('');
         setPassword('');
         alert('👀회원가입이 완료되었습니다!');
         console.log(response.status);
@@ -38,8 +38,8 @@ export default function Signup() {
       });
   };
 
-  const handleUserName = (event) => {
-    setUserName(event.target.value);
+  const handleUserEmail = (event) => {
+    setEmail(event.target.value);
     // console.log(event.target.value);
   };
 
@@ -60,8 +60,8 @@ export default function Signup() {
           <Form.Control
             type="text"
             placeholder="닉네임을 입력해주세요"
-            onChange={handleUserName}
-            value={userName}
+            onChange={handleUserEmail}
+            value={email}
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">

@@ -13,7 +13,7 @@ export default function Signin() {
   const handleSigninSubmit = () => {
     axios
       .post('http://localhost:8080/auth/signIn', {
-        username: email,
+        email: email,
         password: CryptoJS.AES.encrypt(password, secretKey).toString(),
       })
       .then((response) => {

@@ -7,10 +7,16 @@ import {
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { User } from './user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(private userRepository: UserRepository) { }
+
+  async getAll(): Promise<User[]> {
+    return this.userRepository.getAll();
+  }
+
 
   async singUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     try {
