@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import { Routes, Route } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import Categories from './pages/category/Categories';
+import Signin from './pages/Signin/Signin';
 
 export default function App() {
   return (
@@ -27,6 +28,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
 
           <Route path="/signup" element={<Signup />} />
+
+          <Route path="/signin" element={<Signin />} />
 
           <Route path="/brands" element={<Brands />} />
           <Route path="/brands/:id" element={<Brand />} />
