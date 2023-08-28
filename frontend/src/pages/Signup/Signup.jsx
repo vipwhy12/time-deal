@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import CryptoJS from 'crypto-js';
+import { Link } from 'react-router-dom';
 
 export default function Signup() {
   const [userName, setUserName] = useState('');
@@ -52,12 +53,10 @@ export default function Signup() {
       <header>
         <h1>Welcome Time Deal</h1>
         이미 회원이신가요?
-        {/* <Link to="/login" /> */}
-        로그인하러가기
+        <Link to="/signin"> 로그인하러가기 </Link>
       </header>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>💁🏻‍♀️ 닉네임</Form.Label>
           <Form.Control
             type="text"
             placeholder="닉네임을 입력해주세요"
@@ -66,7 +65,6 @@ export default function Signup() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>💁🏻‍♀️ 비밀번호</Form.Label>
           <Form.Control
             type="password"
             placeholder="비밀번호를 입력해주세요"
