@@ -1,13 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { AuthCredentialsDto } from './auth-credential.dto';
+import { User } from './user.entity';
 import * as CryptoJS from 'crypto-js';
 import {
   ConflictException,
   InternalServerErrorException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { User } from './user.entity';
+
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,6 @@ export class AuthService {
   async getAll(): Promise<User[]> {
     return this.userRepository.getAll();
   }
-
 
   async singUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
     try {

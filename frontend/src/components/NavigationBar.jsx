@@ -1,6 +1,5 @@
 import { Container, Nav, Navbar, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import Search from './search/Search';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Loading from './Loading';
@@ -38,16 +37,9 @@ export default function NavigationBar() {
 
   return (
     <>
-      <Navbar bg="black" data-bs-theme="dark">
+      <Navbar bg="dark" data-bs-theme="dark">
         <Container>
-          <Navbar.Brand
-            onClick={() => {
-              navigate('');
-            }}
-          >
-            ⌚️TimeDeal
-          </Navbar.Brand>
-          <Nav className="me-auto">
+          {/* <Nav className="me-auto">
             <Nav.Link
               onClick={() => {
                 move();
@@ -69,15 +61,22 @@ export default function NavigationBar() {
             >
               Sales
             </Nav.Link>
-          </Nav>
-          <Search brands={brands} />
+          </Nav> */}
+          {/* <Search brands={brands} /> */}{' '}
+          <Navbar.Brand
+            onClick={() => {
+              navigate('');
+            }}
+          >
+            ⌚️TimeDeal
+          </Navbar.Brand>
           <Button
-            variant="outline-light"
+            variant="dark"
             onClick={() => {
               navigate('/signup');
             }}
           >
-            ✨회원가입✨
+            회원가입
           </Button>
         </Container>
       </Navbar>

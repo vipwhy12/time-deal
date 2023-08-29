@@ -9,4 +9,5 @@ export const typeORMConfig: TypeOrmModuleOptions = {
   database: 'time_deal',
   entities: [__dirname + '/../**/*.entity.{js,ts}'],
   synchronize: true,
+  useUTC: false,
 };

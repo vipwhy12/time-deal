@@ -59,7 +59,7 @@ export default function Signup() {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Control
             type="text"
-            placeholder="닉네임을 입력해주세요"
+            placeholder="✉️ 이메일"
             onChange={handleUserEmail}
             value={email}
           />
@@ -67,7 +67,7 @@ export default function Signup() {
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Control
             type="password"
-            placeholder="비밀번호를 입력해주세요"
+            placeholder="🔒 비밀번호"
             onChange={handlePassword}
             value={password}
           />
