@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { AuthCredentialsDto } from './auth-credential.dto';
 import { User } from './user.entity';
+import { JwtService } from '@nestjs/jwt';
 import * as CryptoJS from 'crypto-js';
 import {
   ConflictException,
@@ -12,7 +13,10 @@ import {
 
 @Injectable()
 export class AuthService {
-  constructor(private userRepository: UserRepository) { }
+  constructor(
+    private userRepository: UserRepository,
+    private jwtService: JwtService,
+  ) { }
 
   async getAll(): Promise<User[]> {
     return this.userRepository.getAll();
@@ -30,7 +34,10 @@ export class AuthService {
     }
   }
 
-  async singIn(authCredentialsDto: AuthCredentialsDto): Promise<string> {
+  async singIn(
+    authCredentialsDto: AuthCredentialsDto,
+  ): Promise<{ accessToken: string }> {
+    const { email } = authCredentialsDto;
     const secretKey = process.env.CRYPTOJS_KEY;
     const authCredentialsDtoPassword = CryptoJS.AES.decrypt(
       authCredentialsDto.password,
@@ -48,11 +55,16 @@ export class AuthService {
 
       //비밀번호 검증 로직
       if (user && authCredentialsDtoPassword === userPassword) {
-        return '로그인성공';
+        // 유저 토큰 생성(Secret + Payload)
+        const payload = { email };
+        const accessToken = await this.jwtService.sign(payload);
+        console.log("🔑 토큰이 발급되었습니다!");
+        return { accessToken };
       } else {
         throw new UnauthorizedException('로그인 실패');
       }
     } catch (error) {
+      console.log(error);
       throw new NotFoundException(`🥲 아이디와 비밀번호를 찾을 수 없습니다.`);
     }
   }
