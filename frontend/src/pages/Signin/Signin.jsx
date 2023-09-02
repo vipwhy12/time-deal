@@ -12,15 +12,22 @@ export default function Signin() {
 
   const handleSigninSubmit = () => {
     axios
-      .post('http://localhost:8080/auth/signIn', {
-        email: email,
-        password: CryptoJS.AES.encrypt(password, secretKey).toString(),
-      })
+      .post(
+        'http://localhost:8080/auth/signIn',
+        {
+          email: email,
+          password: CryptoJS.AES.encrypt(password, secretKey).toString(),
+        },
+        {
+          withCredentials: true, // 이 옵션을 설정해야 쿠키가 전달됩니다.
+        }
+      )
       .then((response) => {
         setEmail('');
         setPassword('');
         alert('👀로그인이 완료되었습니다!');
-        console.log(response.status);
+        console.log(response.data.accessToken);
+        console.log(response);
       })
       .catch((error) => {
         alert('로그인에 실패하였습니다!' + error.response.data.message);

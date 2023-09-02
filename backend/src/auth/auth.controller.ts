@@ -1,7 +1,15 @@
-import { Body, Controller, Post, Get, ValidationPipe } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  ValidationPipe,
+  Res,
+} from '@nestjs/common';
 import { AuthCredentialsDto } from './auth-credential.dto';
 import { AuthService } from './auth.service';
 import { User } from './user.entity';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -19,10 +27,16 @@ export class AuthController {
     return this.authService.singUp(authCredentialsDto);
   }
 
+  // Promise<{ accessToken: string }>
   @Post('/signIn')
-  singIn(
+  async singIn(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
-  ): Promise<string> {
-    return this.authService.singIn(authCredentialsDto);
+    @Res() res: Response,
+  ) {
+    const jwt = await this.authService.singIn(authCredentialsDto);
+    res.cookie('auth', jwt, { httpOnly: true, maxAge: 3600000 });
+    return res.send({
+      message: 'success',
+    });
   }
 }

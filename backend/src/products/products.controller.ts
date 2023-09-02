@@ -1,4 +1,14 @@
-import { Controller, Body, Get, Post, Param, ParseIntPipe, Logger, ValidationPipe, UsePipes } from '@nestjs/common';
+import {
+  Controller,
+  Body,
+  Get,
+  Post,
+  Param,
+  ParseIntPipe,
+  Logger,
+  ValidationPipe,
+  UsePipes,
+} from '@nestjs/common';
 
 import { Product } from './entities/product.entity';
 import { ProductsService } from './products.service';
