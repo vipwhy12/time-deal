@@ -1,21 +1,5 @@
 # Read.Me
 
-## 0. 프로젝트 시작하기 🎉
-
-1. **zip.파일을 해제합니다.**
-
-```json
-//no-tag파일로 이동합니다.
-cd no-tag
-
-docker-compose build
-docker-compose up -d
-```
-
-1. 아래 사진과 같이 된다면,
-   <br>프론트엔드 : http://localhost:3000/ 로 방문해주세요🙇🏻‍♀️
-   <br>백엔드 : http://localhost:8080
-   <img src="./img/시작하기.png">
 
 ## 1. 개발 중점
 
