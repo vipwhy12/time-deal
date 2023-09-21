@@ -41,7 +41,7 @@ repository pattern을 사용하여 저장소를 다루는 로직을 데이터 �
 ## 6. API 명세서
 
 명세서 :
-https://thunder-year-be8.notion.site/API-34275290b937419cab8ee94597113e7e?pvs=4
+[https://thunder-year-be8.notion.site/API-34275290b937419cab8ee94597113e7e?pvs=4](https://thunder-year-be8.notion.site/API-d4974d0f59d841febe764bee0f86b601?pvs=4)
 
 | NO. | Method | URL                       | 기능                                              |
 | --- | ------ | ------------------------- | ------------------------------------------------- |
